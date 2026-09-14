@@ -1,0 +1,19 @@
+{
+  "name": "deepsafe-platform",
+  "version": "1.13.0",
+  "private": true,
+  "scripts": {
+    "build": "pnpm --filter web build",
+    "build:docs": "pnpm --filter docs build",
+    "dev": "pnpm --filter web dev",
+    "dev:docs": "pnpm --filter docs dev",
+    "lint": "pnpm --filter web lint"
+  },
+  "packageManager": "pnpm@9.0.0",
+  "pnpm": {
+    "overrides": {
+      "@types/react": "^18.3.28",
+      "@types/react-dom": "^18.3.7"
+    }
+  }
+}

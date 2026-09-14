@@ -1,0 +1,4 @@
+[flake8]
+max-line-length = 88
+extend-ignore = E203
+exclude = .git,__pycache__,venv,.venv,node_modules,apps/web/.next,apps/docs/.next,*/model_code/*,*/safeear_repo/*,*/speech_synthesis/*,services/*/model/*,tests/e2e/fixtures/*,apps/inference/mmcv_compat/*,models/*/code/*,models/*/*/code/*,models/video/fake-stormer/*

@@ -1,0 +1,83 @@
+[
+  {
+    "test": "IPTC injection on real photo",
+    "status": "PASS",
+    "probability": 0.5,
+    "class": "real",
+    "expected": "Should return 0.5 (real) \u2014 IPTC tags are trivially forgeable",
+    "should_detect": false,
+    "actual_detected": false
+  },
+  {
+    "test": "EXIF Software='Midjourney' on real photo",
+    "status": "PASS",
+    "probability": 0.5,
+    "class": "real",
+    "expected": "Should return 0.5 (real) \u2014 EXIF Software is trivially spoofable",
+    "should_detect": false,
+    "actual_detected": false
+  },
+  {
+    "test": "Combined EXIF+IPTC injection on real photo",
+    "status": "PASS",
+    "probability": 0.5,
+    "class": "real",
+    "expected": "Should return 0.5 \u2014 forged metadata without crypto verification",
+    "should_detect": false,
+    "actual_detected": false
+  },
+  {
+    "test": "Forged SDV2 watermark in real photo",
+    "status": "PASS",
+    "probability": 0.5,
+    "class": "real",
+    "expected": "Should return 0.5 \u2014 watermark was forged, not from real SDXL",
+    "should_detect": false,
+    "actual_detected": false
+  },
+  {
+    "test": "Clean real JPEG (c2pa_checker)",
+    "status": "PASS",
+    "probability": 0.5,
+    "class": "real",
+    "expected": "Should return 0.5 (real) \u2014 no provenance signals",
+    "should_detect": false,
+    "actual_detected": false
+  },
+  {
+    "test": "Clean real JPEG (sdxl_watermark)",
+    "status": "PASS",
+    "probability": 0.5,
+    "class": "real",
+    "expected": "Should return 0.5 (real) \u2014 no watermark",
+    "should_detect": false,
+    "actual_detected": false
+  },
+  {
+    "test": "Clean real WAV (audioseal)",
+    "status": "PASS",
+    "probability": 0.5,
+    "class": "real",
+    "expected": "Should return 0.5 (real) \u2014 no AudioSeal watermark",
+    "should_detect": false,
+    "actual_detected": false
+  },
+  {
+    "test": "AI image after metadata stripping",
+    "status": "PASS",
+    "probability": 0.5,
+    "class": "real",
+    "expected": "Should return 0.5 \u2014 metadata stripped, models must detect",
+    "should_detect": false,
+    "actual_detected": false
+  },
+  {
+    "test": "4096x4096 image (sdxl_watermark)",
+    "status": "PASS",
+    "probability": 0.5,
+    "class": "real",
+    "expected": "Should return 0.5 and not crash/timeout",
+    "should_detect": false,
+    "actual_detected": false
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "title": "DeepSafe API",
+  "pages": [
+    "index",
+    "---Getting Started---",
+    "quickstart",
+    "authentication",
+    "---API Reference---",
+    "endpoints",
+    "errors"
+  ]
+}

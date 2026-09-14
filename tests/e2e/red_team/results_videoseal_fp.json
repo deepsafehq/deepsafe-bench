@@ -1,0 +1,230 @@
+[
+  {
+    "attack": "VS: solid_white",
+    "prob": 0.5,
+    "severity": "PASS",
+    "raw": {
+      "model": "videoseal_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.16925883293151855
+    }
+  },
+  {
+    "attack": "VS: solid_black",
+    "prob": 0.5,
+    "severity": "PASS",
+    "raw": {
+      "model": "videoseal_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.1283247470855713
+    }
+  },
+  {
+    "attack": "VS: solid_gray",
+    "prob": 0.5,
+    "severity": "PASS",
+    "raw": {
+      "model": "videoseal_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.14879250526428223
+    }
+  },
+  {
+    "attack": "VS: random_noise",
+    "prob": 0.5,
+    "severity": "PASS",
+    "raw": {
+      "model": "videoseal_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.16390776634216309
+    }
+  },
+  {
+    "attack": "VS: gradient_h",
+    "prob": 0.5,
+    "severity": "PASS",
+    "raw": {
+      "model": "videoseal_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.14081144332885742
+    }
+  },
+  {
+    "attack": "VS: gradient_v",
+    "prob": 0.5,
+    "severity": "PASS",
+    "raw": {
+      "model": "videoseal_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.13899540901184082
+    }
+  },
+  {
+    "attack": "VS: checkerboard",
+    "prob": 0.5,
+    "severity": "PASS",
+    "raw": {
+      "model": "videoseal_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.1576371192932129
+    }
+  },
+  {
+    "attack": "VS: low_contrast",
+    "prob": 0.5,
+    "severity": "PASS",
+    "raw": {
+      "model": "videoseal_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.22890591621398926
+    }
+  },
+  {
+    "attack": "VS: high_freq_sin",
+    "prob": 0.5,
+    "severity": "PASS",
+    "raw": {
+      "model": "videoseal_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.8528850078582764
+    }
+  },
+  {
+    "attack": "VS: moire",
+    "prob": 0.5,
+    "severity": "PASS",
+    "raw": {
+      "model": "videoseal_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.5283942222595215
+    }
+  },
+  {
+    "attack": "VS: diagonal",
+    "prob": 0.5,
+    "severity": "PASS",
+    "raw": {
+      "model": "videoseal_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.4897804260253906
+    }
+  },
+  {
+    "attack": "VS: noise_512",
+    "prob": 0.5,
+    "severity": "PASS",
+    "raw": {
+      "model": "videoseal_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.4541749954223633
+    }
+  },
+  {
+    "attack": "VS: white_512",
+    "prob": 0.5,
+    "severity": "PASS",
+    "raw": {
+      "model": "videoseal_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.3701202869415283
+    }
+  },
+  {
+    "attack": "VS: 16x16",
+    "prob": 0.5,
+    "severity": "PASS",
+    "raw": {
+      "model": "videoseal_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.3927915096282959
+    }
+  },
+  {
+    "attack": "VS: 1x1",
+    "prob": 0.5,
+    "severity": "PASS",
+    "raw": {
+      "model": "videoseal_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.3982963562011719
+    }
+  },
+  {
+    "attack": "VS: 64x64",
+    "prob": 0.5,
+    "severity": "PASS",
+    "raw": {
+      "model": "videoseal_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.5257713794708252
+    }
+  },
+  {
+    "attack": "VS: 1024x1024",
+    "prob": 0.5,
+    "severity": "PASS",
+    "raw": {
+      "model": "videoseal_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.4928138256072998
+    }
+  },
+  {
+    "attack": "VS: 2048x2048",
+    "prob": 0.5,
+    "severity": "PASS",
+    "raw": {
+      "model": "videoseal_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.44618773460388184
+    }
+  },
+  {
+    "attack": "VS: control_video.mp4",
+    "prob": 0.5,
+    "severity": "PASS",
+    "raw": {
+      "model": "videoseal_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 11.846474647521973
+    }
+  }
+]

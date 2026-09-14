@@ -1,0 +1,10 @@
+[project]
+name = "deepsafe-shared"
+version = "0.1.0"
+description = "Shared code for DeepSafe gateway and inference services"
+requires-python = ">=3.11"
+dependencies = []
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

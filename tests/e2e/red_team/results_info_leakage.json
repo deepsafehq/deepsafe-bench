@@ -1,0 +1,177 @@
+[
+  {
+    "attack": "info_leak_c2pa",
+    "leaked": [
+      "model_name=c2pa_checker",
+      "description present",
+      "model_name=c2pa_checker"
+    ],
+    "severity": "LOW",
+    "root": {
+      "model_name": "c2pa_checker",
+      "description": "C2PA + EXIF/IPTC provenance checker for AI-generated media",
+      "modalities": [
+        "image",
+        "audio",
+        "video"
+      ]
+    },
+    "health": {
+      "status": "healthy",
+      "model_name": "c2pa_checker",
+      "ready": true
+    }
+  },
+  {
+    "attack": "info_leak_sdxl",
+    "leaked": [
+      "model_name=sdxl_watermark_detector",
+      "device=cpu",
+      "model_loaded=True",
+      "description present",
+      "model_name=sdxl_watermark_detector",
+      "device=cpu",
+      "model_loaded=True"
+    ],
+    "severity": "LOW",
+    "root": {
+      "model_name": "sdxl_watermark_detector",
+      "description": "SDXL invisible watermark detector using DWT-DCT steganographic decoding",
+      "device": "cpu",
+      "model_loaded": true
+    },
+    "health": {
+      "status": "healthy",
+      "model_name": "sdxl_watermark_detector",
+      "device": "cpu",
+      "model_loaded": true
+    }
+  },
+  {
+    "attack": "info_leak_audioseal",
+    "leaked": [
+      "model_name=audioseal_detector",
+      "device=cpu",
+      "model_loaded=True",
+      "description present",
+      "model_name=audioseal_detector",
+      "device=cpu",
+      "model_loaded=True"
+    ],
+    "severity": "LOW",
+    "root": {
+      "model_name": "audioseal_detector",
+      "description": "AudioSeal watermark detector for AI-generated audio",
+      "device": "cpu",
+      "model_loaded": true
+    },
+    "health": {
+      "status": "healthy",
+      "model_name": "audioseal_detector",
+      "device": "cpu",
+      "model_loaded": true
+    }
+  },
+  {
+    "attack": "info_leak_videoseal",
+    "leaked": [
+      "model_name=videoseal_detector",
+      "device=cpu",
+      "model_loaded=True",
+      "description present",
+      "model_name=videoseal_detector",
+      "device=cpu",
+      "model_loaded=True"
+    ],
+    "severity": "LOW",
+    "root": {
+      "model_name": "videoseal_detector",
+      "description": "VideoSeal/PixelSeal watermark detector for AI-generated images and videos",
+      "device": "cpu",
+      "model_loaded": true
+    },
+    "health": {
+      "status": "healthy",
+      "model_name": "videoseal_detector",
+      "device": "cpu",
+      "model_loaded": true
+    }
+  },
+  {
+    "attack": "timing_c2pa_oracle",
+    "regular_ms": 66.22872352600098,
+    "c2pa_ms": 74.5568037033081,
+    "ratio": 1.1257472548755614,
+    "severity": "LOW"
+  },
+  {
+    "attack": "timing_sdxl_oracle",
+    "nowm_ms": 15.85693359375,
+    "wm_ms": 32.55362510681152,
+    "severity": "LOW"
+  },
+  {
+    "attack": "error_verbosity_audioseal",
+    "severity": "PASS"
+  },
+  {
+    "attack": "docs_exposed_c2pa_/docs",
+    "severity": "LOW",
+    "size": 955
+  },
+  {
+    "attack": "docs_exposed_c2pa_/redoc",
+    "severity": "LOW",
+    "size": 915
+  },
+  {
+    "attack": "docs_exposed_c2pa_/openapi.json",
+    "severity": "LOW",
+    "size": 2490
+  },
+  {
+    "attack": "docs_exposed_sdxl_/docs",
+    "severity": "LOW",
+    "size": 965
+  },
+  {
+    "attack": "docs_exposed_sdxl_/redoc",
+    "severity": "LOW",
+    "size": 925
+  },
+  {
+    "attack": "docs_exposed_sdxl_/openapi.json",
+    "severity": "LOW",
+    "size": 2182
+  },
+  {
+    "attack": "docs_exposed_audioseal_/docs",
+    "severity": "LOW",
+    "size": 961
+  },
+  {
+    "attack": "docs_exposed_audioseal_/redoc",
+    "severity": "LOW",
+    "size": 921
+  },
+  {
+    "attack": "docs_exposed_audioseal_/openapi.json",
+    "severity": "LOW",
+    "size": 2280
+  },
+  {
+    "attack": "docs_exposed_videoseal_/docs",
+    "severity": "LOW",
+    "size": 961
+  },
+  {
+    "attack": "docs_exposed_videoseal_/redoc",
+    "severity": "LOW",
+    "size": 921
+  },
+  {
+    "attack": "docs_exposed_videoseal_/openapi.json",
+    "severity": "LOW",
+    "size": 2457
+  }
+]

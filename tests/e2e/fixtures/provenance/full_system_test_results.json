@@ -1,0 +1,35 @@
+{
+  "total": 45,
+  "passed": 45,
+  "failed": 0,
+  "categories": {
+    "DETECT": {
+      "passed": 5,
+      "failed": 0
+    },
+    "CONTROL": {
+      "passed": 13,
+      "failed": 0
+    },
+    "ADV-META": {
+      "passed": 7,
+      "failed": 0
+    },
+    "ADV-WM": {
+      "passed": 2,
+      "failed": 0
+    },
+    "ADV-STRIP": {
+      "passed": 2,
+      "failed": 0
+    },
+    "FORMAT": {
+      "passed": 7,
+      "failed": 0
+    },
+    "ERROR": {
+      "passed": 5,
+      "failed": 0
+    }
+  }
+}

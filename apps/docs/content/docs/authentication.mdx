@@ -1,0 +1,59 @@
+---
+title: Authentication
+description: How to authenticate your API requests with API keys.
+---
+
+All API requests require an API key passed as a Bearer token in the `Authorization` header.
+
+## Getting a Key
+
+1. Sign up at [localhost:3000](http://localhost:3000)
+2. Go to **API Keys** in the dashboard
+3. Click **Create Key** and give it a name
+4. Copy the key immediately. It is shown only once.
+
+## Using Your Key
+
+Include it in every request:
+
+```bash title="Example"
+curl -H "Authorization: Bearer ds_live_your_key_here" \
+  http://localhost:8000/v1/usage
+```
+
+```python title="Python"
+import requests
+
+response = requests.post(
+    "http://localhost:8000/v1/detect",
+    headers={"Authorization": "Bearer ds_live_your_key_here"},
+    files={"file": open("photo.jpg", "rb")},
+)
+print(response.json())
+```
+
+```javascript title="Node.js"
+const form = new FormData();
+form.append('file', fs.createReadStream('photo.jpg'));
+
+const response = await fetch('http://localhost:8000/v1/detect', {
+  method: 'POST',
+  headers: { 'Authorization': 'Bearer ds_live_your_key_here' },
+  body: form,
+});
+const result = await response.json();
+```
+
+## Key Management
+
+- Create up to **5 keys** per account for different environments (dev, staging, prod)
+- Revoke compromised keys instantly from the dashboard
+- Revoked keys return `401 Unauthorized` immediately
+- All keys share the same scan quota (per-user billing, not per-key)
+
+## Security Best Practices
+
+- Keys are hashed (SHA-256) before storage. We never store your key in plaintext.
+- Use environment variables to store keys, never hardcode them
+- Rotate keys periodically
+- Use separate keys for development and production

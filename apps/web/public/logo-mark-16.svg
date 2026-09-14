@@ -1,0 +1,10 @@
+<svg width="16" height="18" viewBox="0 0 80 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Filled shield for maximum contrast at small size -->
+  <path d="M40 4L8 20V46C8 64 22 80 40 86C58 80 72 64 72 46V20L40 4Z"
+        fill="#047857" opacity="0.9"/>
+  <!-- Scan line as negative space -->
+  <line x1="12" y1="45" x2="68" y2="45" stroke="#111113" stroke-width="6"/>
+  <!-- Center eye -->
+  <circle cx="40" cy="45" r="6" fill="#111113"/>
+  <circle cx="40" cy="45" r="3" fill="#047857"/>
+</svg>

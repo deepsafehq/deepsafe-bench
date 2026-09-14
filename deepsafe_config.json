@@ -1,0 +1,78 @@
+{
+  "media_types": {
+    "image": {
+      "model_endpoints": {
+        "npr": "http://localhost:8001/models/npr/predict",
+        "yermandy": "http://localhost:8001/models/yermandy/predict",
+        "universal": "http://localhost:8001/models/universal/predict",
+        "aide": "http://localhost:8001/models/aide/predict",
+        "fsd": "http://localhost:8001/models/fsd/predict",
+        "effort": "http://localhost:8001/models/effort/predict",
+        "cospy": "http://localhost:8001/models/cospy/predict"
+      },
+      "health_endpoints": {
+        "npr": "http://localhost:8001/health",
+        "yermandy": "http://localhost:8001/health",
+        "universal": "http://localhost:8001/health",
+        "aide": "http://localhost:8001/health",
+        "fsd": "http://localhost:8001/health",
+        "effort": "http://localhost:8001/health",
+        "cospy": "http://localhost:8001/health"
+      }
+    },
+    "video": {
+      "model_endpoints": {
+        "fakestormer": "http://localhost:8001/models/fakestormer/predict",
+        "sbi": "http://localhost:8001/models/sbi/predict",
+        "dfd_fcg": "http://localhost:8001/models/dfd_fcg/predict",
+        "pwtf_dvd": "http://localhost:8001/models/pwtf_dvd/predict",
+        "lipfd": "http://localhost:8001/models/lipfd/predict",
+        "recce": "http://localhost:8001/models/recce/predict",
+        "mintime": "http://localhost:8001/models/mintime/predict",
+        "npr_video": "http://localhost:8001/models/npr_video/predict",
+        "univfd_video": "http://localhost:8001/models/univfd_video/predict"
+      },
+      "health_endpoints": {
+        "fakestormer": "http://localhost:8001/health",
+        "sbi": "http://localhost:8001/health",
+        "dfd_fcg": "http://localhost:8001/health",
+        "pwtf_dvd": "http://localhost:8001/health",
+        "lipfd": "http://localhost:8001/health",
+        "recce": "http://localhost:8001/health",
+        "mintime": "http://localhost:8001/health",
+        "npr_video": "http://localhost:8001/health",
+        "univfd_video": "http://localhost:8001/health"
+      }
+    },
+    "audio": {
+      "model_endpoints": {
+        "shiftyspeech": "http://localhost:8001/models/shiftyspeech/predict",
+        "safeear": "http://localhost:8001/models/safeear/predict",
+        "nes2net": "http://localhost:8001/models/nes2net/predict"
+      },
+      "health_endpoints": {
+        "shiftyspeech": "http://localhost:8001/health",
+        "safeear": "http://localhost:8001/health",
+        "nes2net": "http://localhost:8001/health"
+      }
+    },
+    "provenance": {
+      "model_endpoints": {
+        "c2pa": "http://localhost:8001/models/c2pa/predict",
+        "sdxl_watermark": "http://localhost:8001/models/sdxl_watermark/predict",
+        "audioseal": "http://localhost:8001/models/audioseal/predict",
+        "videoseal": "http://localhost:8001/models/videoseal/predict",
+        "trustmark": "http://localhost:8001/models/trustmark/predict"
+      },
+      "health_endpoints": {
+        "c2pa": "http://localhost:8001/health",
+        "sdxl_watermark": "http://localhost:8001/health",
+        "audioseal": "http://localhost:8001/health",
+        "videoseal": "http://localhost:8001/health",
+        "trustmark": "http://localhost:8001/health"
+      }
+    }
+  },
+  "default_api_timeout_seconds": 600,
+  "default_max_retries": 1
+}

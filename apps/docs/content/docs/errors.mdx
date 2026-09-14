@@ -1,0 +1,70 @@
+---
+title: Errors & Rate Limits
+description: Error codes, rate limits, and how to handle them.
+---
+
+## Error Format
+
+All errors return a consistent JSON structure:
+
+```json
+{
+  "error": "error_code",
+  "message": "Human-readable description"
+}
+```
+
+## Error Codes
+
+| HTTP | Code | Description |
+|------|------|-------------|
+| `401` | `unauthorized` | Missing, malformed, or revoked API key |
+| `402` | `quota_exceeded` | Scan limit reached. Upgrade plan to continue. |
+| `402` | `async_not_allowed` | Async mode requires a paid plan (API key users) |
+| `400` | `empty_file` | Uploaded file is empty |
+| `404` | `not_found` | Detection ID not found |
+| `413` | `payload_too_large` | Request payload exceeds the size limit |
+| `415` | `unsupported_media_type` | Unrecognized file type |
+| `415` | `content_type_mismatch` | File content does not match the declared media type |
+| `429` | `rate_limited` | Too many requests |
+| `500` | `internal_error` | Server error. Retry after a moment. |
+
+## Rate Limits
+
+Each plan has different rate limits:
+
+| Plan | Requests/Min | Daily Limit | Scans |
+|------|-------------|-------------|-------|
+| Free | 5 | 10 | 200 (lifetime) |
+| Starter | 20 | None | 2,000/month |
+| Pro | 60 | None | 10,000/month |
+
+### Rate Limit Headers
+
+Every API response includes rate limit headers:
+
+| Header | Description |
+|--------|-------------|
+| `X-RateLimit-Limit` | Maximum requests allowed per minute |
+| `X-RateLimit-Remaining` | Requests remaining in the current window |
+| `X-RateLimit-Reset` | Seconds until the rate limit window resets |
+
+### Handling Rate Limits
+
+When you receive a `429` response, the body includes a `retry_after` value in seconds:
+
+```json
+{
+  "error": "rate_limited",
+  "message": "Rate limit exceeded. Retry after 60 seconds.",
+  "retry_after": 60
+}
+```
+
+Wait for the specified duration before retrying. Implement exponential backoff for production integrations.
+
+## Best Practices
+
+- Use `GET /v1/usage` to monitor your monthly quota
+- Use async mode for batch processing to avoid timeout issues
+- Implement retry logic with exponential backoff for `429` and `500` errors

@@ -1,0 +1,301 @@
+[
+  {
+    "attack": "Forged SDV2 256x256 PNG",
+    "prob": 0.5,
+    "expected": "Should be blocked (0.5) or detected as forged",
+    "severity": "PASS",
+    "raw": {
+      "model": "sdxl_watermark_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.2723555564880371
+    }
+  },
+  {
+    "attack": "Forged SDV2 256x256 JPEG-95",
+    "prob": 0.5,
+    "expected": "Should be blocked (0.5)",
+    "severity": "PASS",
+    "raw": {
+      "model": "sdxl_watermark_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.044724464416503906
+    }
+  },
+  {
+    "attack": "Forged SDV2 512x512 PNG",
+    "prob": 0.85,
+    "expected": "Should be blocked (0.5) or detected as forged",
+    "severity": "CRITICAL",
+    "raw": {
+      "model": "sdxl_watermark_detector",
+      "probability": 0.85,
+      "prediction": 1,
+      "class": "fake",
+      "inference_time": 0.19163036346435547
+    }
+  },
+  {
+    "attack": "Forged SDV2 512x512 JPEG-95",
+    "prob": 0.5,
+    "expected": "Should be blocked (0.5)",
+    "severity": "PASS",
+    "raw": {
+      "model": "sdxl_watermark_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.08570528030395508
+    }
+  },
+  {
+    "attack": "Forged SDV2 1024x1024 PNG",
+    "prob": 0.92,
+    "expected": "Should be blocked (0.5) or detected as forged",
+    "severity": "CRITICAL",
+    "raw": {
+      "model": "sdxl_watermark_detector",
+      "probability": 0.92,
+      "prediction": 1,
+      "class": "fake",
+      "inference_time": 0.4082198143005371
+    }
+  },
+  {
+    "attack": "Forged SDV2 1024x1024 JPEG-95",
+    "prob": 0.5,
+    "expected": "Should be blocked (0.5)",
+    "severity": "PASS",
+    "raw": {
+      "model": "sdxl_watermark_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.37314796447753906
+    }
+  },
+  {
+    "attack": "Forged SDV2 768x512 PNG",
+    "prob": 0.5,
+    "expected": "Should be blocked (0.5) or detected as forged",
+    "severity": "PASS",
+    "raw": {
+      "model": "sdxl_watermark_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.13994979858398438
+    }
+  },
+  {
+    "attack": "Forged SDV2 768x512 JPEG-95",
+    "prob": 0.5,
+    "expected": "Should be blocked (0.5)",
+    "severity": "PASS",
+    "raw": {
+      "model": "sdxl_watermark_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.12650656700134277
+    }
+  },
+  {
+    "attack": "Forged SDV2 512x512 via dwtDct",
+    "prob": 0.92,
+    "expected": "Should be blocked (0.5)",
+    "severity": "CRITICAL",
+    "raw": {
+      "model": "sdxl_watermark_detector",
+      "probability": 0.92,
+      "prediction": 1,
+      "class": "fake",
+      "inference_time": 0.03207278251647949
+    }
+  },
+  {
+    "attack": "Forged SDV2 512x512 via dwtDctSvd",
+    "prob": 0.92,
+    "expected": "Should be blocked (0.5)",
+    "severity": "CRITICAL",
+    "raw": {
+      "model": "sdxl_watermark_detector",
+      "probability": 0.92,
+      "prediction": 1,
+      "class": "fake",
+      "inference_time": 0.09089016914367676
+    }
+  },
+  {
+    "attack": "Non-SDV2 watermark (TEST prefix)",
+    "prob": 0.5,
+    "expected": "Should be 0.5 (not SDV2)",
+    "severity": "PASS",
+    "raw": {
+      "model": "sdxl_watermark_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.10744571685791016
+    }
+  },
+  {
+    "attack": "Non-SDV2 watermark (All 0xFF)",
+    "prob": 0.5,
+    "expected": "Should be 0.5 (not SDV2)",
+    "severity": "PASS",
+    "raw": {
+      "model": "sdxl_watermark_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.09215164184570312
+    }
+  },
+  {
+    "attack": "Non-SDV2 watermark (All 0x00)",
+    "prob": 0.5,
+    "expected": "Should be 0.5 (not SDV2)",
+    "severity": "PASS",
+    "raw": {
+      "model": "sdxl_watermark_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.11758995056152344
+    }
+  },
+  {
+    "attack": "Non-SDV2 watermark (SDV1 prefix (close to SDV2))",
+    "prob": 0.85,
+    "expected": "Should be 0.5 (not SDV2)",
+    "severity": "CRITICAL",
+    "raw": {
+      "model": "sdxl_watermark_detector",
+      "probability": 0.85,
+      "prediction": 1,
+      "class": "fake",
+      "inference_time": 0.03427910804748535
+    }
+  },
+  {
+    "attack": "Non-SDV2 watermark (SDW2 prefix (1 bit diff from SDV2))",
+    "prob": 0.85,
+    "expected": "Should be 0.5 (not SDV2)",
+    "severity": "CRITICAL",
+    "raw": {
+      "model": "sdxl_watermark_detector",
+      "probability": 0.85,
+      "prediction": 1,
+      "class": "fake",
+      "inference_time": 0.0332179069519043
+    }
+  },
+  {
+    "attack": "FP test: solid_white",
+    "prob": 0.5,
+    "expected": "Should be 0.5 (no watermark)",
+    "severity": "PASS",
+    "raw": {
+      "model": "sdxl_watermark_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.08366584777832031
+    }
+  },
+  {
+    "attack": "FP test: solid_black",
+    "prob": 0.5,
+    "expected": "Should be 0.5 (no watermark)",
+    "severity": "PASS",
+    "raw": {
+      "model": "sdxl_watermark_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.0796051025390625
+    }
+  },
+  {
+    "attack": "FP test: solid_gray",
+    "prob": 0.5,
+    "expected": "Should be 0.5 (no watermark)",
+    "severity": "PASS",
+    "raw": {
+      "model": "sdxl_watermark_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.07170653343200684
+    }
+  },
+  {
+    "attack": "FP test: gradient_h",
+    "prob": 0.5,
+    "expected": "Should be 0.5 (no watermark)",
+    "severity": "PASS",
+    "raw": {
+      "model": "sdxl_watermark_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.07278251647949219
+    }
+  },
+  {
+    "attack": "FP test: checkerboard",
+    "prob": 0.5,
+    "expected": "Should be 0.5 (no watermark)",
+    "severity": "PASS",
+    "raw": {
+      "model": "sdxl_watermark_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.08777904510498047
+    }
+  },
+  {
+    "attack": "FP test: random_noise",
+    "prob": 0.5,
+    "expected": "Should be 0.5 (no watermark)",
+    "severity": "PASS",
+    "raw": {
+      "model": "sdxl_watermark_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.1091299057006836
+    }
+  },
+  {
+    "attack": "FP test: low_noise",
+    "prob": 0.5,
+    "expected": "Should be 0.5 (no watermark)",
+    "severity": "PASS",
+    "raw": {
+      "model": "sdxl_watermark_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.09243202209472656
+    }
+  },
+  {
+    "attack": "FP test: periodic_sine",
+    "prob": 0.5,
+    "expected": "Should be 0.5 (no watermark)",
+    "severity": "PASS",
+    "raw": {
+      "model": "sdxl_watermark_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.08946681022644043
+    }
+  }
+]

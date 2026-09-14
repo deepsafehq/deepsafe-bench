@@ -1,0 +1,254 @@
+[
+  {
+    "attack": "Audio FP: silence",
+    "prob": 0.5,
+    "severity": "PASS",
+    "raw": {
+      "model": "audioseal_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.5934693813323975
+    }
+  },
+  {
+    "attack": "Audio FP: white_noise",
+    "prob": 0.5,
+    "severity": "PASS",
+    "raw": {
+      "model": "audioseal_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.2924506664276123
+    }
+  },
+  {
+    "attack": "Audio FP: pink_noise_approx",
+    "prob": 0.5,
+    "severity": "PASS",
+    "raw": {
+      "model": "audioseal_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.2544889450073242
+    }
+  },
+  {
+    "attack": "Audio FP: sine_440hz",
+    "prob": 0.5,
+    "severity": "PASS",
+    "raw": {
+      "model": "audioseal_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.3019556999206543
+    }
+  },
+  {
+    "attack": "Audio FP: sine_20hz",
+    "prob": 0.5,
+    "severity": "PASS",
+    "raw": {
+      "model": "audioseal_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.3384582996368408
+    }
+  },
+  {
+    "attack": "Audio FP: sine_15khz",
+    "prob": 0.5,
+    "severity": "PASS",
+    "raw": {
+      "model": "audioseal_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.2921485900878906
+    }
+  },
+  {
+    "attack": "Audio FP: speech_like",
+    "prob": 0.5,
+    "severity": "PASS",
+    "raw": {
+      "model": "audioseal_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.29663896560668945
+    }
+  },
+  {
+    "attack": "Audio FP: near_clipping",
+    "prob": 0.5,
+    "severity": "PASS",
+    "raw": {
+      "model": "audioseal_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.3031892776489258
+    }
+  },
+  {
+    "attack": "Audio FP: near_zero",
+    "prob": 0.5,
+    "severity": "PASS",
+    "raw": {
+      "model": "audioseal_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.35664963722229004
+    }
+  },
+  {
+    "attack": "Audio FP: impulse_train",
+    "prob": 0.5,
+    "severity": "PASS",
+    "raw": {
+      "model": "audioseal_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.30101776123046875
+    }
+  },
+  {
+    "attack": "Audio FP: square_wave",
+    "prob": 0.5,
+    "severity": "PASS",
+    "raw": {
+      "model": "audioseal_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.298084020614624
+    }
+  },
+  {
+    "attack": "Audio FP: chirp",
+    "prob": 0.5,
+    "severity": "PASS",
+    "raw": {
+      "model": "audioseal_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.29495692253112793
+    }
+  },
+  {
+    "attack": "Audio FP: am_modulated",
+    "prob": 0.5,
+    "severity": "PASS",
+    "raw": {
+      "model": "audioseal_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.3044297695159912
+    }
+  },
+  {
+    "attack": "Audio FP: dc_offset",
+    "prob": 0.5,
+    "severity": "PASS",
+    "raw": {
+      "model": "audioseal_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.31031250953674316
+    }
+  },
+  {
+    "attack": "Audio duration: 100ms",
+    "prob": 0.5,
+    "severity": "PASS",
+    "raw": {
+      "model": "audioseal_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.10958170890808105
+    }
+  },
+  {
+    "attack": "Audio duration: 10s",
+    "prob": 0.5,
+    "severity": "PASS",
+    "raw": {
+      "model": "audioseal_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 2.599362850189209
+    }
+  },
+  {
+    "attack": "Audio sample rate: 8000Hz",
+    "prob": 0.5,
+    "severity": "PASS",
+    "raw": {
+      "model": "audioseal_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.20047235488891602
+    }
+  },
+  {
+    "attack": "Audio sample rate: 22050Hz",
+    "prob": 0.5,
+    "severity": "PASS",
+    "raw": {
+      "model": "audioseal_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.24624061584472656
+    }
+  },
+  {
+    "attack": "Audio sample rate: 44100Hz",
+    "prob": 0.5,
+    "severity": "PASS",
+    "raw": {
+      "model": "audioseal_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.3847615718841553
+    }
+  },
+  {
+    "attack": "Audio sample rate: 48000Hz",
+    "prob": 0.5,
+    "severity": "PASS",
+    "raw": {
+      "model": "audioseal_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.2587876319885254
+    }
+  },
+  {
+    "attack": "Audio stereo WAV",
+    "prob": 0.5,
+    "severity": "PASS",
+    "raw": {
+      "model": "audioseal_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.3639647960662842
+    }
+  }
+]

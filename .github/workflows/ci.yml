@@ -1,0 +1,77 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  secrets:
+    name: Secret scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITLEAKS_CONFIG: .gitleaks.toml
+
+  hygiene:
+    name: Repo hygiene
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: No Git LFS
+        run: |
+          if git ls-files | xargs -I{} sh -c 'git check-attr filter {} | grep -q "filter: lfs"' 2>/dev/null; then
+            echo "Git LFS filters found. Large assets belong on HuggingFace."; exit 1
+          fi
+          echo "No LFS filters."
+      - name: No file over 5MB
+        run: |
+          big=$(git ls-files | xargs -r du -k 2>/dev/null | awk '$1 > 5120 {print $2}')
+          if [ -n "$big" ]; then echo "Files over 5MB:"; echo "$big"; exit 1; fi
+          echo "No oversized files."
+      - name: No committed env files
+        run: |
+          bad=$(git ls-files | grep -E '(^|/)\.env$' || true)
+          if [ -n "$bad" ]; then echo "Committed .env files:"; echo "$bad"; exit 1; fi
+          echo "No .env files committed."
+
+  python:
+    name: Python tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - name: Lint
+        run: uvx ruff check . || true
+      - name: Gateway tests
+        # test_trustmark*, test_c2pa_improvements import apps/inference model
+        # wrappers, which pull in torch. Those run in the GPU job, not here.
+        run: |
+          cd apps/gateway
+          PYTHONPATH=.:../../packages/shared uv run --python 3.11 \
+            --with-requirements requirements.txt \
+            --with pytest --with httpx --with pytest-asyncio \
+            pytest tests/ -q \
+            --ignore=tests/test_trustmark.py \
+            --ignore=tests/test_trustmark_robustness.py \
+            --ignore=tests/test_c2pa_improvements.py
+
+  web:
+    name: Web and docs build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 9 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      # Both apps must build with no credentials configured. If either starts
+      # requiring a secret to build, that is a regression.
+      - run: cd apps/web && CI=true pnpm build
+      - run: cd apps/docs && CI=true pnpm build

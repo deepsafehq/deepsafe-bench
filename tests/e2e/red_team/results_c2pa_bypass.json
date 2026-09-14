@@ -1,0 +1,22 @@
+[
+  {
+    "attack": "c2pa_signed + IPTC AI",
+    "result": {
+      "model": "c2pa_checker",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.33551907539367676
+    }
+  },
+  {
+    "attack": "c2pa_signed + full EXIF AI",
+    "result": {
+      "model": "c2pa_checker",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.10161280632019043
+    }
+  }
+]

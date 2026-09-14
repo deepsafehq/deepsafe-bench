@@ -1,0 +1,183 @@
+@import "shadcn/tailwind.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Landing Page (Light Mode) */
+    --background: #FAFAF8;
+    --surface: #F3F3F0;
+    --surface-raised: #FFFFFF;
+    --border: #E5E5E3;
+    --border-subtle: #EDEDEB;
+
+    --text-primary: #1A1A1A;
+    --text-secondary: #6B6B6B;
+    --text-tertiary: #9B9B9B;
+
+    --accent: #047857;
+    --accent-light: #ECFDF5;
+    --accent-hover: #065F46;
+    --accent-foreground: #FFFFFF;
+
+    --danger: #DC2626;
+    --danger-light: #FEF2F2;
+    --warning: #D97706;
+    --warning-light: #FFFBEB;
+
+    --dark-section-bg: #111113;
+    --dark-section-text: #E4E4E7;
+
+    /* Shadcn compatibility */
+    --foreground: #1A1A1A;
+    --card: #FFFFFF;
+    --card-foreground: #1A1A1A;
+    --popover: #FFFFFF;
+    --popover-foreground: #1A1A1A;
+    --primary: #047857;
+    --primary-foreground: #FFFFFF;
+    --secondary: #F3F3F0;
+    --secondary-foreground: #1A1A1A;
+    --muted: #F3F3F0;
+    --muted-foreground: #6B6B6B;
+    --destructive: #DC2626;
+    --destructive-foreground: #FFFFFF;
+    --input: #E5E5E3;
+    --ring: #047857;
+
+    --radius: 0.5rem;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px rgba(26, 26, 26, 0.04);
+    --shadow-md: 0 4px 12px rgba(26, 26, 26, 0.06);
+    --shadow-lg: 0 12px 32px rgba(26, 26, 26, 0.08);
+    --shadow-card: 0 1px 3px rgba(26, 26, 26, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.02);
+
+    /* Motion */
+    --ease-out: cubic-bezier(0.25, 1, 0.5, 1);
+    --ease-subtle: cubic-bezier(0.45, 0.05, 0.55, 0.95);
+    --duration-fast: 150ms;
+    --duration-normal: 200ms;
+    --duration-slow: 350ms;
+  }
+
+  /* App Interface (Dark Mode) */
+  [data-theme="app"] {
+    --background: #111113;
+    --surface: #1C1C1F;
+    --surface-raised: #242428;
+    --border: #2A2A2E;
+    --border-subtle: #1F1F23;
+
+    --text-primary: #E4E4E7;
+    --text-secondary: #71717A;
+    --text-tertiary: #52525B;
+
+    --accent: #10B981;
+    --accent-light: rgba(16, 185, 129, 0.1);
+    --accent-hover: #34D399;
+    --accent-foreground: #FFFFFF;
+
+    --danger: #EF4444;
+    --danger-light: rgba(239, 68, 68, 0.1);
+    --warning: #F59E0B;
+    --warning-light: rgba(245, 158, 11, 0.1);
+
+    /* Shadcn compatibility */
+    --foreground: #E4E4E7;
+    --card: #1C1C1F;
+    --card-foreground: #E4E4E7;
+    --popover: #242428;
+    --popover-foreground: #E4E4E7;
+    --primary: #10B981;
+    --primary-foreground: #FFFFFF;
+    --secondary: #1C1C1F;
+    --secondary-foreground: #E4E4E7;
+    --muted: #1C1C1F;
+    --muted-foreground: #71717A;
+    --destructive: #EF4444;
+    --destructive-foreground: #FFFFFF;
+    --input: #2A2A2E;
+    --ring: #10B981;
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.4);
+    --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.04);
+  }
+
+  * {
+    @apply border-[var(--border)];
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--text-primary);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* CTA Button Animation */
+@keyframes cta-flow {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes cta-shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  40% {
+    transform: translateX(200%);
+  }
+  100% {
+    transform: translateX(200%);
+  }
+}
+
+.cta-animated {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    90deg,
+    #047857,
+    #059669,
+    #10B981,
+    #059669,
+    #047857
+  );
+  background-size: 300% 100%;
+  animation: cta-flow 4s ease-in-out infinite;
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.cta-animated:hover {
+  box-shadow: 0 0 30px rgba(16, 185, 129, 0.35);
+  transform: translateY(-1px);
+}
+
+.cta-animated::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.1) 35%,
+    rgba(255, 255, 255, 0.15) 40%,
+    transparent 60%
+  );
+  animation: cta-shimmer 5s ease-in-out infinite;
+  pointer-events: none;
+}

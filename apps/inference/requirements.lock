@@ -1,0 +1,104 @@
+# Pinned requirements for DeepSafe Monolith Inference Server
+# Generated from working A6000-48GB deployment (2026-04-08, Python 3.11.15)
+# Updated 2026-04-08: added insightface + onnxruntime-gpu for SCRFD face
+# detection (5-10x faster than MTCNN). See VIDEO_INFERENCE_OPTIMIZATIONS.md.
+#
+# Install procedure:
+#   1. uv venv --python 3.11
+#   2. source .venv/bin/activate
+#   3. uv pip install torch==2.5.1 torchvision==0.20.1 torchaudio==2.5.1 --index-url https://download.pytorch.org/whl/cu121
+#   4. uv pip install -r monolith/requirements.lock --index-url https://download.pytorch.org/whl/cu121 --extra-index-url https://pypi.org/simple
+#   5. Build fairseq from source (see monolith/setup.sh)
+#
+# Also tested with PyTorch 2.11.0 + CUDA 12.6 (all optimizations work).
+
+# ── PyTorch + CUDA 12.1 ────────────────────────────────────────────────────
+torch==2.5.1
+torchvision==0.20.1
+torchaudio==2.5.1
+
+# ── Core ────────────────────────────────────────────────────────────────────
+numpy==1.26.4
+fastapi==0.135.3
+uvicorn[standard]==0.44.0
+pydantic==2.12.5
+python-multipart==0.0.24
+
+# ── ML Libraries ───────────────────────────────────────────────────────────
+transformers==4.57.6
+timm==1.0.26
+open-clip-torch==3.3.0
+einops==0.8.2
+lightning==2.6.1
+pytorch-lightning==2.6.1
+librosa==0.11.0
+scipy==1.17.1
+scikit-learn==1.8.0
+albumentations==2.0.8
+accelerate==1.13.0
+
+# ── Model-specific ─────────────────────────────────────────────────────────
+efficientnet-pytorch==0.7.1
+facenet-pytorch==2.5.3
+peft==0.18.1
+loralib==0.1.2
+diffusers==0.37.1
+hydra-core==1.3.2
+omegaconf==2.3.0
+safetensors==0.7.0
+kornia==0.8.2
+
+# ── Provenance ──────────────────────────────────────────────────────────────
+c2pa-python==0.32.0
+invisible-watermark==0.2.0
+audioseal==0.1.4
+# videoseal==1.0.1 installed separately with --no-deps (timm version conflict)
+trustmark>=0.9.0
+av==17.0.0
+pycocotools==2.0.11
+
+# ── Audio I/O ───────────────────────────────────────────────────────────────
+soundfile==0.13.1
+pyexiftool==0.5.6
+
+# ── Image/Video I/O ────────────────────────────────────────────────────────
+opencv-python-headless==4.11.0.86
+Pillow==10.2.0
+pillow-heif==0.22.0
+ffmpeg-python==0.2.0
+
+# ── Video model deps ───────────────────────────────────────────────────────
+networkx==3.6.1
+filterpy==1.4.5
+simplejson==3.20.2
+fvcore==0.1.5.post20221221
+yacs==0.1.8
+
+# ── Inference optimization ─────────────────────────────────────────────────
+insightface==0.7.3
+onnxruntime-gpu==1.24.4
+onnx==1.21.0
+
+# ── Ensemble meta-learners ────────────────────────────────────────────────
+lightgbm==4.6.0
+xgboost==3.2.0
+joblib==1.5.1
+
+# ── Eval dependencies ─────────────────────────────────────────────────────
+pyarrow==23.0.1
+
+# ── Misc (needed by model code repos) ──────────────────────────────────────
+pandas==3.0.2
+wandb==0.25.1
+python-box==7.4.1
+plotly==6.6.0
+tensorboard==2.19.0
+seaborn==0.13.2
+setuptools==69.5.1
+rich==14.3.3
+Cython==3.2.4
+
+# ── fairseq (build from source, then patch) ────────────────────────────────
+# Do NOT pip install fairseq — it breaks on modern Python.
+# Instead, the setup script builds it from source and patches it.
+# See monolith/setup.sh for the full procedure.

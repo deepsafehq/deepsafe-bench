@@ -1,0 +1,75 @@
+[project]
+name = "deepsafe-platform"
+version = "1.13.0"
+description = "Enterprise-grade deepfake detection platform"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "torch",
+    "pillow",
+    "requests",
+    "rich",
+    "pandas",
+    "scikit-learn",
+    "numpy",
+    "matplotlib",
+    "seaborn",
+    "tqdm",
+    "pytest",
+    "pytest-cov",
+    "pytest-asyncio",
+    "black==25.11.0",
+    "flake8",
+    "isort==6.1.0",
+    "httpx",
+    "fastapi>=0.135.0",
+    "uvicorn",
+    "pydantic>=2.0.0",
+    "python-multipart",
+    "sqlalchemy",
+    "redis",
+    "PyJWT",
+    "prometheus-client",
+    "sentry-sdk[fastapi]",
+    "celery[redis]",
+    "minio",
+    "aiohttp",
+    "cryptography",
+    "lightgbm",
+    "xgboost",
+    "alembic",
+    "psycopg2-binary",
+]
+
+[tool.uv]
+managed = true
+package = false
+
+[tool.setuptools]
+packages = []
+
+[tool.black]
+line-length = 88
+target-version = ['py39']
+extend-exclude = '''
+/(
+    model_code
+    | models/.*/code
+)/
+'''
+
+[tool.isort]
+profile = "black"
+known_first_party = ["app"]
+extend_skip_glob = ["model_code/*", "*/model_code/*", "models/*/code/*", "models/*/*/code/*", "models/video/fake-stormer/*"]
+
+[tool.pytest.ini_options]
+pythonpath = ["apps/gateway", "apps/inference", "packages/shared"]
+testpaths = ["apps/gateway/tests", "apps/inference/tests", "tests/e2e"]
+python_files = ["test_*.py", "*_test.py", "verify_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+markers = [
+    "integration: marks tests as integration tests (require running Docker containers)",
+    "unit: marks tests as unit tests (fast, no external dependencies)",
+]

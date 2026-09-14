@@ -1,0 +1,23 @@
+[Unit]
+Description=DeepSafe Inference Server
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=exec
+User=deepsafe
+Group=deepsafe
+WorkingDirectory=/opt/deepsafe
+EnvironmentFile=/etc/deepsafe/env
+ExecStart=/opt/deepsafe/infrastructure/scripts/start_inference.sh
+Restart=on-failure
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=deepsafe-inference
+
+# GPU access
+SupplementaryGroups=video render
+
+[Install]
+WantedBy=multi-user.target

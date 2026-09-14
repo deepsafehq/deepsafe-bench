@@ -1,0 +1,18 @@
+<svg width="260" height="90" viewBox="0 0 260 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Logomark -->
+  <path d="M40 4L8 20V46C8 64 22 80 40 86C58 80 72 64 72 46V20L40 4Z"
+        stroke="#047857" stroke-width="2.5" fill="none" opacity="0.9"/>
+  <path d="M40 12L16 25V46C16 60 27 73 40 78C53 73 64 60 64 46V25L40 12Z"
+        stroke="#047857" stroke-width="1.2" fill="none" opacity="0.3"/>
+  <line x1="14" y1="45" x2="66" y2="45" stroke="#047857" stroke-width="2" opacity="0.8"/>
+  <circle cx="14" cy="45" r="2.5" fill="#047857" opacity="0.6"/>
+  <circle cx="66" cy="45" r="2.5" fill="#047857" opacity="0.6"/>
+  <circle cx="40" cy="45" r="5" fill="#047857" opacity="0.25"/>
+  <circle cx="40" cy="45" r="2.5" fill="#047857" opacity="0.9"/>
+  <line x1="40" y1="20" x2="40" y2="38" stroke="#047857" stroke-width="0.5" opacity="0.15"/>
+  <line x1="40" y1="52" x2="40" y2="72" stroke="#047857" stroke-width="0.5" opacity="0.15"/>
+  <line x1="22" y1="33" x2="58" y2="33" stroke="#047857" stroke-width="0.5" opacity="0.15"/>
+  <line x1="18" y1="57" x2="62" y2="57" stroke="#047857" stroke-width="0.5" opacity="0.15"/>
+  <!-- Wordmark -->
+  <text x="90" y="55" font-family="Inter, Geist, system-ui, sans-serif" font-weight="300" font-size="38" fill="#ffffff" letter-spacing="-0.5">DeepSafe</text>
+</svg>

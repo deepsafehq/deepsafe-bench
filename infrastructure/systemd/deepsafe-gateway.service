@@ -1,0 +1,20 @@
+[Unit]
+Description=DeepSafe API Gateway
+After=network-online.target redis.service
+Wants=network-online.target
+
+[Service]
+Type=exec
+User=deepsafe
+Group=deepsafe
+WorkingDirectory=/opt/deepsafe
+EnvironmentFile=/etc/deepsafe/env
+ExecStart=/opt/deepsafe/infrastructure/scripts/start_gateway.sh
+Restart=on-failure
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=deepsafe-gateway
+
+[Install]
+WantedBy=multi-user.target

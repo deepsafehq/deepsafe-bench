@@ -1,0 +1,28 @@
+# Gitleaks configuration for DeepSafe.
+#
+# The only allowlisted matches are documentation placeholders. Real credentials
+# must never be allowlisted here; fix the code instead.
+
+[extend]
+useDefault = true
+
+[[rules]]
+id = "curl-auth-header"
+description = "Authorization header in a curl example"
+regex = '''(?i)curl(.*?)(-H|--header)(\s+)"?Authorization:(\s+)(Bearer|Token)(\s+)[0-9a-zA-Z_\-\.=:/+]{8,}'''
+
+[rules.allowlist]
+description = "Documentation placeholders, not real keys"
+regexes = [
+  '''YOUR_API_KEY''',
+  '''ds_live_your_key_here''',
+  '''<your[_ -]?api[_ -]?key>''',
+]
+
+[allowlist]
+description = "Global allowlist"
+paths = [
+  '''node_modules''',
+  '''pnpm-lock\.yaml''',
+  '''uv\.lock''',
+]

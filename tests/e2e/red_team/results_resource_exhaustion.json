@@ -1,0 +1,284 @@
+[
+  {
+    "attack": "Empty b64 -> c2pa",
+    "result": {
+      "error": "HTTP 400",
+      "detail": "{\"detail\":\"Empty file data after base64 decode.\"}"
+    },
+    "expected": "Should return 400 or 0.5",
+    "severity": "INFO"
+  },
+  {
+    "attack": "Empty b64 -> sdxl",
+    "result": {
+      "error": "HTTP 400",
+      "detail": "{\"detail\":\"No image data provided.\"}"
+    },
+    "expected": "Should return 400 or 0.5",
+    "severity": "INFO"
+  },
+  {
+    "attack": "Empty b64 -> audioseal",
+    "result": {
+      "error": "HTTP 400",
+      "detail": "{\"detail\":\"Empty audio data after base64 decode.\"}"
+    },
+    "expected": "Should return 400 or 0.5",
+    "severity": "INFO"
+  },
+  {
+    "attack": "Empty b64 -> videoseal",
+    "result": {
+      "error": "HTTP 400",
+      "detail": "{\"detail\":\"Empty media data after base64 decode.\"}"
+    },
+    "expected": "Should return 400 or 0.5",
+    "severity": "INFO"
+  },
+  {
+    "attack": "Invalid b64 -> c2pa",
+    "result": {
+      "error": "HTTP 400",
+      "detail": "{\"detail\":\"Invalid base64 data: Incorrect padding\"}"
+    },
+    "expected": "Should return 400",
+    "severity": "INFO"
+  },
+  {
+    "attack": "Invalid b64 -> sdxl",
+    "result": {
+      "error": "HTTP 400",
+      "detail": "{\"detail\":\"Invalid base64 data: Incorrect padding\"}"
+    },
+    "expected": "Should return 400",
+    "severity": "INFO"
+  },
+  {
+    "attack": "Invalid b64 -> audioseal",
+    "result": {
+      "error": "HTTP 400",
+      "detail": "{\"detail\":\"Invalid base64 data: Incorrect padding\"}"
+    },
+    "expected": "Should return 400",
+    "severity": "INFO"
+  },
+  {
+    "attack": "Invalid b64 -> videoseal",
+    "result": {
+      "error": "HTTP 400",
+      "detail": "{\"detail\":\"Invalid base64 data: Incorrect padding\"}"
+    },
+    "expected": "Should return 400",
+    "severity": "INFO"
+  },
+  {
+    "attack": "Random 1KB bytes -> c2pa",
+    "result": {
+      "model": "c2pa_checker",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.07651901245117188
+    },
+    "expected": "Should return 0.5 or error",
+    "severity": "INFO"
+  },
+  {
+    "attack": "Random 1KB bytes -> sdxl",
+    "result": {
+      "model": "sdxl_watermark_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.007992982864379883
+    },
+    "expected": "Should return 0.5 or error",
+    "severity": "INFO"
+  },
+  {
+    "attack": "Random 1KB bytes -> audioseal",
+    "result": {
+      "model": "audioseal_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.00045490264892578125
+    },
+    "expected": "Should return 0.5 or error",
+    "severity": "INFO"
+  },
+  {
+    "attack": "Random 1KB bytes -> videoseal",
+    "result": {
+      "model": "videoseal_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.00021195411682128906
+    },
+    "expected": "Should return 0.5 or error",
+    "severity": "INFO"
+  },
+  {
+    "attack": "Single null byte -> c2pa",
+    "result": {
+      "model": "c2pa_checker",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.06331396102905273
+    },
+    "expected": "Should handle gracefully",
+    "severity": "INFO"
+  },
+  {
+    "attack": "Single null byte -> sdxl",
+    "result": {
+      "model": "sdxl_watermark_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.00019431114196777344
+    },
+    "expected": "Should handle gracefully",
+    "severity": "INFO"
+  },
+  {
+    "attack": "Single null byte -> audioseal",
+    "result": {
+      "model": "audioseal_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.0009400844573974609
+    },
+    "expected": "Should handle gracefully",
+    "severity": "INFO"
+  },
+  {
+    "attack": "Single null byte -> videoseal",
+    "result": {
+      "model": "videoseal_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.00017213821411132812
+    },
+    "expected": "Should handle gracefully",
+    "severity": "INFO"
+  },
+  {
+    "attack": "Truncated JPEG header -> sdxl",
+    "result": {
+      "model": "sdxl_watermark_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.007375478744506836
+    },
+    "expected": "Should return 0.5 or error",
+    "severity": "INFO"
+  },
+  {
+    "attack": "Truncated JPEG header -> videoseal",
+    "result": {
+      "model": "videoseal_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.00018739700317382812
+    },
+    "expected": "Should return 0.5 or error",
+    "severity": "INFO"
+  },
+  {
+    "attack": "Truncated WAV header -> audioseal",
+    "result": {
+      "model": "audioseal_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.0003795623779296875
+    },
+    "expected": "Should return 0.5 or error",
+    "severity": "INFO"
+  },
+  {
+    "attack": "8192x8192 PNG -> sdxl (28.7s)",
+    "result": {
+      "model": "sdxl_watermark_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 28.639358043670654
+    },
+    "expected": "Should handle without OOM",
+    "severity": "INFO"
+  },
+  {
+    "attack": "8192x8192 PNG -> videoseal (5.2s)",
+    "result": {
+      "model": "videoseal_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 5.214372634887695
+    },
+    "expected": "Should handle without OOM",
+    "severity": "INFO"
+  },
+  {
+    "attack": "No media field -> c2pa",
+    "result": {
+      "error": "HTTP 400",
+      "detail": "{\"detail\":\"No media data provided. Include one of: image_data, audio_data, video_data.\"}"
+    },
+    "expected": "Should return 400",
+    "severity": "INFO"
+  },
+  {
+    "attack": "audio_data -> sdxl (expects image_data)",
+    "result": {
+      "error": "HTTP 422",
+      "detail": "{\"detail\":[{\"type\":\"missing\",\"loc\":[\"body\",\"image_data\"],\"msg\":\"Field required\",\"input\":{\"audio_data\":\"dGVzdA==\"}}]}"
+    },
+    "expected": "Should return 422 or 400",
+    "severity": "INFO"
+  },
+  {
+    "attack": "Burst 20 -> sdxl (0 errors, max 0.0s)",
+    "result": {
+      "model": "sdxl_watermark_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.001706838607788086
+    },
+    "expected": "All should succeed",
+    "severity": "INFO"
+  },
+  {
+    "attack": "Burst 10 -> audioseal (0 errors, max 0.9s)",
+    "result": {
+      "model": "audioseal_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.11074614524841309
+    },
+    "expected": "All should succeed",
+    "severity": "INFO"
+  },
+  {
+    "attack": "Malformed PNG error detail",
+    "result": {
+      "model": "videoseal_detector",
+      "probability": 0.5,
+      "prediction": 0,
+      "class": "real",
+      "inference_time": 0.0007736682891845703
+    },
+    "expected": "Handled gracefully",
+    "severity": "INFO"
+  }
+]

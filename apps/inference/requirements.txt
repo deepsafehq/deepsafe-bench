@@ -1,0 +1,67 @@
+# DeepSafe Monolith - Unified requirements for all 22 models
+# Install: pip install -r requirements.txt
+# Note: Install torch first with CUDA if on GPU:
+#   pip install torch==2.5.1 torchvision==0.20.1 torchaudio==2.5.1 --index-url https://download.pytorch.org/whl/cu121
+
+# ── Core ML ──────────────────────────────────────────────────────────────────
+torch==2.5.1
+torchvision==0.20.1
+torchaudio==2.5.1
+numpy<2.0
+
+# ── Web framework ────────────────────────────────────────────────────────────
+fastapi>=0.115
+uvicorn[standard]
+pydantic>=2.0
+python-multipart
+
+# ── Shared ML libraries ─────────────────────────────────────────────────────
+transformers>=4.50
+timm>=1.0.14
+open-clip-torch>=2.24
+einops>=0.7
+lightning>=2.5
+librosa>=0.9.1
+scipy>=1.10
+scikit-learn>=1.6
+albumentations
+
+# ── Model-specific ───────────────────────────────────────────────────────────
+efficientnet-pytorch      # SBI
+facenet-pytorch           # SBI, DFD-FCG, LipFD, MINTIME (MTCNN face detection)
+peft                      # Yermandy (LoRA)
+loralib                   # Effort
+diffusers                 # CO-SPY (Stable Diffusion VAE)
+hydra-core                # SafeEar
+omegaconf                 # SafeEar, ShiftySpeech (fairseq compat)
+safetensors               # AASIST3
+kornia                    # AIDE
+
+# ── Provenance ───────────────────────────────────────────────────────────────
+c2pa-python               # C2PA content credentials
+invisible-watermark       # SDXL invisible watermark
+audioseal==0.1.4          # AudioSeal (Meta)
+# videoseal: install separately with --no-deps to avoid conflicts
+# pip install videoseal==1.0.1 --no-deps
+
+# ── Audio I/O ────────────────────────────────────────────────────────────────
+soundfile
+pyexiftool                # C2PA EXIF metadata
+
+# ── Image/Video I/O ─────────────────────────────────────────────────────────
+opencv-python-headless
+Pillow
+pillow-heif               # FSD (HEIC support)
+ffmpeg-python
+
+# ── Video model deps ─────────────────────────────────────────────────────────
+networkx                  # MINTIME (identity clustering)
+filterpy                  # PwTF-DVD (SORT tracker)
+simplejson                # PwTF-DVD (SlowFast)
+
+# ── Inference optimization ───────────────────────────────────────────────────
+insightface>=0.7           # SCRFD face detection (5-10x faster than MTCNN)
+onnxruntime-gpu>=1.18      # ONNX Runtime with CUDA + TensorRT backends
+
+# ── Audio model deps ─────────────────────────────────────────────────────────
+fairseq                   # ShiftySpeech, Nes2Net (wav2vec2)

@@ -1,0 +1,45 @@
+# Secrets -- never commit
+.env
+.env.*
+!.env.example
+!*.env.example
+*.pem
+*.key
+gha-creds-*.json
+
+# Model assets (mirrored on HuggingFace, pulled by setup.sh)
+models/**/code/
+models/**/weights/
+models/.ext_cache/
+s3prl_hub/
+ckpts/
+.hf_cache/
+
+# Datasets (published on HuggingFace)
+master_dataset/
+dataset/
+*.zip
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+*.egg-info/
+.pytest_cache/
+
+# Node
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+package-lock.json
+
+# Runtime
+*.db
+logs/
+.turbo/
+.wrangler/
+
+# OS
+**/.DS_Store

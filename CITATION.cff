@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+title: "DeepSafe: A Multi-Modal Deepfake Detection Benchmark and Model Zoo"
+message: "If you use this software or its benchmark results, please cite it."
+type: software
+authors:
+  - family-names: Sah
+    given-names: "Siddharth Kumar"
+repository-code: "https://github.com/deepsafehq/deepsafe-bench"
+abstract: >-
+  DeepSafe runs 24 deepfake detection and provenance models behind one
+  interface and measures them across 411 generators and 6 robustness attacks.
+  It reports in-distribution and held-out-generator performance separately,
+  making generalization failure visible rather than hidden.
+keywords:
+  - deepfake-detection
+  - benchmark
+  - multimodal
+  - model-zoo
+  - generalization
+license: LicenseRef-PolyForm-Noncommercial-1.0.0
