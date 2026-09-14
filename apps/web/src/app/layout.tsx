@@ -24,9 +24,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "DeepSafe - Enterprise Deepfake Detection",
+  title: "DeepSafe - Deepfake Detection Benchmark",
   description:
-    "High-precision, multi-modal deepfake detection platform powered by state-of-the-art AI models.",
+    "A benchmark for deepfake detection. 24 models scored across 411 generators, reporting where detection actually fails.",
   icons: {
     icon: [
       { url: "/favicon.svg", type: "image/svg+xml" },
