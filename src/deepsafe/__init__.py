@@ -15,7 +15,7 @@ __version__ = "1.0.0"
 CITATION = """\
 @software{deepsafe2026,
   title  = {DeepSafe: A Multi-Modal Deepfake Detection Benchmark and Model Zoo},
-  author = {Sah, Siddharth Kumar},
+  author = {Sah, Siddharth},
   year   = {2026},
   url    = {https://github.com/deepsafehq/deepsafe-bench},
   note   = {Free for non-commercial use under PolyForm Noncommercial 1.0.0}

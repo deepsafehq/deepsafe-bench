@@ -9,7 +9,7 @@ description = "Benchmark, model zoo and adaptation toolkit for deepfake detectio
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "PolyForm-Noncommercial-1.0.0" }
-authors = [{ name = "Siddharth Kumar Sah" }]
+authors = [{ name = "Siddharth Sah" }]
 keywords = ["deepfake", "detection", "benchmark", "model-zoo"]
 classifiers = [
     "License :: Other/Proprietary License",

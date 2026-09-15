@@ -4,7 +4,7 @@ message: "If you use this software or its benchmark results, please cite it."
 type: software
 authors:
   - family-names: Sah
-    given-names: "Siddharth Kumar"
+    given-names: "Siddharth"
 repository-code: "https://github.com/deepsafehq/deepsafe-bench"
 abstract: >-
   DeepSafe runs 24 deepfake detection and provenance models behind one
