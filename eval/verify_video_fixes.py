@@ -18,7 +18,7 @@ Usage:
     python eval/verify_video_fixes.py --num-samples 50
 
     # Custom server URL
-    python eval/verify_video_fixes.py --server http://10.0.0.5:8000
+    python eval/verify_video_fixes.py --server http://inference-host:8000
 
     # Custom dataset path
     python eval/verify_video_fixes.py --dataset-dir /data/master_eval_full/video
