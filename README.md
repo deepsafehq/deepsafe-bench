@@ -58,8 +58,10 @@ Almost nobody publishes this. Papers compare against three or four baselines on
 one or two datasets because getting baselines to run is genuinely brutal, not
 because researchers are careless.
 
-DeepSafe exists so that stops being the bottleneck. Full numbers, reproducible
-from the shipped prediction matrix, are in [BENCHMARK.md](BENCHMARK.md).
+DeepSafe exists so that stops being the bottleneck. Full numbers are in
+[BENCHMARK.md](BENCHMARK.md), and [REPRODUCING.md](REPRODUCING.md) shows how to
+check every one of them, starting with a 30-second version that needs no GPU,
+no download and no account.
 
 ## What you get
 
