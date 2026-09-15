@@ -21,6 +21,8 @@ dataset/
 *.zip
 
 # Python
+build/
+dist/
 __pycache__/
 *.pyc
 *.pyo
