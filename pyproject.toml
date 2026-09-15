@@ -1,52 +1,56 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [project]
-name = "deepsafe-platform"
-version = "1.13.0"
-description = "Enterprise-grade deepfake detection platform"
+name = "deepsafe-bench"
+version = "1.0.0"
+description = "Benchmark, model zoo and adaptation toolkit for deepfake detection"
 readme = "README.md"
 requires-python = ">=3.11"
-dependencies = [
-    "torch",
-    "pillow",
-    "requests",
-    "rich",
-    "pandas",
-    "scikit-learn",
-    "numpy",
-    "matplotlib",
-    "seaborn",
-    "tqdm",
-    "pytest",
-    "pytest-cov",
-    "pytest-asyncio",
-    "black==25.11.0",
-    "flake8",
-    "isort==6.1.0",
-    "httpx",
-    "fastapi>=0.135.0",
-    "uvicorn",
-    "pydantic>=2.0.0",
-    "python-multipart",
-    "sqlalchemy",
-    "redis",
-    "PyJWT",
-    "prometheus-client",
-    "sentry-sdk[fastapi]",
-    "celery[redis]",
-    "minio",
-    "aiohttp",
-    "cryptography",
-    "lightgbm",
-    "xgboost",
-    "alembic",
-    "psycopg2-binary",
+license = { text = "PolyForm-Noncommercial-1.0.0" }
+authors = [{ name = "Siddharth Kumar Sah" }]
+keywords = ["deepfake", "detection", "benchmark", "model-zoo"]
+classifiers = [
+    "License :: Other/Proprietary License",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
 ]
+
+# `deepsafe eval` and `deepsafe fit --tier 1` deliberately need nothing beyond
+# the standard library, so the benchmark is checkable on any machine.
+dependencies = []
+
+[project.optional-dependencies]
+# Fetching dataset tiers and model weights.
+hub = ["huggingface_hub>=0.20"]
+# Running the models: the inference server and gateway.
+server = [
+    "torch", "pillow", "numpy", "opencv-python", "fastapi>=0.135.0", "uvicorn",
+    "pydantic>=2.0.0", "python-multipart", "sqlalchemy", "redis", "PyJWT",
+    "prometheus-client", "celery[redis]", "aiohttp", "cryptography",
+    "lightgbm", "xgboost", "alembic", "scikit-learn", "pandas", "requests",
+]
+dev = ["pytest", "pytest-cov", "pytest-asyncio", "httpx", "black", "flake8", "isort"]
+
+[project.urls]
+Homepage = "https://github.com/deepsafehq/deepsafe-bench"
+Benchmark = "https://github.com/deepsafehq/deepsafe-bench/blob/main/BENCHMARK.md"
+Models = "https://huggingface.co/deepsafe/model-code"
+Dataset = "https://huggingface.co/datasets/deepsafe/evaluation-dataset"
+
+[project.scripts]
+deepsafe = "deepsafe.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+deepsafe = ["assets/*.csv.gz"]
 
 [tool.uv]
 managed = true
-package = false
-
-[tool.setuptools]
-packages = []
 
 [tool.black]
 line-length = 88
@@ -64,8 +68,8 @@ known_first_party = ["app"]
 extend_skip_glob = ["model_code/*", "*/model_code/*", "models/*/code/*", "models/*/*/code/*", "models/video/fake-stormer/*"]
 
 [tool.pytest.ini_options]
-pythonpath = ["apps/gateway", "apps/inference", "packages/shared"]
-testpaths = ["apps/gateway/tests", "apps/inference/tests", "tests/e2e"]
+pythonpath = ["src", "apps/gateway", "apps/inference", "packages/shared"]
+testpaths = ["tests/unit", "apps/gateway/tests", "apps/inference/tests"]
 python_files = ["test_*.py", "*_test.py", "verify_*.py"]
 python_classes = ["Test*"]
 python_functions = ["test_*"]

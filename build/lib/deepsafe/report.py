@@ -1,0 +1,131 @@
+"""Report card rendering and citation export."""
+
+from __future__ import annotations
+
+import dataclasses
+import pathlib
+from typing import Optional
+
+from deepsafe import CITATION
+
+# Citations for every model in the lineup, emitted alongside any report that
+# used them. Running a benchmark should make citing the baselines the path of
+# least resistance, not an afterthought.
+MODEL_CITATIONS: dict[str, str] = {
+    "aide": "@inproceedings{aide2025, title={AIDE: Antifake with Interpretable "
+            "Detection}, note={arXiv:2406.19435}, year={2025}}",
+    "cospy": "@inproceedings{cospy2025, title={CO-SPY}, "
+             "booktitle={CVPR}, note={arXiv:2503.18286}, year={2025}}",
+    "effort": "@inproceedings{effort2025, title={Effort: Orthogonal Subspace "
+              "Decomposition for AIGI Detection}, booktitle={ICML}, "
+              "note={arXiv:2411.15633}, year={2025}}",
+    "fsd": "@inproceedings{fsd2025, title={Forensic Self-Descriptions}, "
+           "booktitle={CVPR}, note={arXiv:2503.21003}, year={2025}}",
+    "npr": "@inproceedings{npr2024, title={Rethinking Up-Sampling Operations "
+           "(NPR)}, note={arXiv:2312.10461}, year={2024}}",
+    "universal": "@inproceedings{universal2023, title={Towards Universal Fake "
+                 "Image Detectors}, booktitle={CVPR}, "
+                 "note={arXiv:2302.10174}, year={2023}}",
+    "yermandy": "@misc{gend2025, title={GenD}, note={arXiv:2508.06248}, "
+                "year={2025}}",
+    "mintime": "@article{mintime2024, title={MINTIME}, "
+               "journal={IEEE T-IFS}, note={arXiv:2206.13829}, year={2024}}",
+    "safeear": "@inproceedings{safeear2024, title={SafeEar}, "
+               "note={arXiv:2409.09272}, year={2024}}",
+    "dfd_fcg": "@inproceedings{dfdfcg2025, title={DFD-FCG}, "
+               "booktitle={CVPR}, note={arXiv:2404.05583}, year={2025}}",
+    "lipfd": "@inproceedings{lipfd2024, title={LipFD}, booktitle={NeurIPS}, "
+             "note={arXiv:2401.15668}, year={2024}}",
+    "pwtf_dvd": "@inproceedings{pwtfdvd2025, title={PwTF-DVD}, "
+                "booktitle={ICCV}, note={arXiv:2507.02398}, year={2025}}",
+    "sbi": "@inproceedings{sbi2022, title={Detecting Deepfakes with "
+           "Self-Blended Images}, booktitle={CVPR}, year={2022}}",
+    "recce": "@inproceedings{recce2022, title={End-to-End Reconstruction-"
+             "Classification Learning}, booktitle={CVPR}, year={2022}}",
+}
+
+
+@dataclasses.dataclass
+class ReportCard:
+    """Scores for one detector on one evaluation run."""
+
+    detector: str
+    tier: str
+    n_samples: int
+    auc: Optional[float]
+    recall: Optional[float]
+    fpr: Optional[float]
+    eer: Optional[float]
+    threshold: float
+    worst_generators: list[tuple[str, float, int]]
+    best_generators: list[tuple[str, float, int]]
+    models_used: list[str] = dataclasses.field(default_factory=list)
+
+    def render(self) -> str:
+        """Render the report card as plain text."""
+        def pct(value: Optional[float]) -> str:
+            return "n/a" if value is None else f"{value * 100:5.1f}%"
+
+        def num(value: Optional[float]) -> str:
+            return "n/a" if value is None else f"{value:.4f}"
+
+        lines = [
+            f"REPORT CARD: {self.detector}",
+            f"  tier                  {self.tier} ({self.n_samples:,} samples)",
+            f"  AUC                   {num(self.auc)}",
+            f"  recall on fakes       {pct(self.recall)}  @ threshold {self.threshold}",
+            f"  false positive rate   {pct(self.fpr)}",
+            f"  equal error rate      {num(self.eer)}",
+        ]
+
+        if self.worst_generators:
+            lines.append("")
+            lines.append("  Weakest generators (this is the number that matters):")
+            for name, rate, n in self.worst_generators:
+                lines.append(f"    {name:<28s} {rate * 100:5.1f}%   n={n}")
+
+        if self.best_generators:
+            lines.append("")
+            lines.append("  Strongest generators:")
+            for name, rate, n in self.best_generators:
+                lines.append(f"    {name:<28s} {rate * 100:5.1f}%   n={n}")
+
+        spread = self._spread()
+        if spread is not None:
+            lines.append("")
+            lines.append(
+                f"  Spread between best and worst generator: {spread * 100:.1f} points."
+            )
+            lines.append(
+                "  A single aggregate score would have concealed that."
+            )
+        return "\n".join(lines)
+
+    def _spread(self) -> Optional[float]:
+        """Gap between the best and worst per-generator recall."""
+        if not self.worst_generators or not self.best_generators:
+            return None
+        return self.best_generators[0][1] - self.worst_generators[0][1]
+
+    def citations(self) -> str:
+        """Return BibTeX for DeepSafe plus every model used in this run."""
+        entries = [
+            "% Generated by `deepsafe eval`. Please cite the models you ran,",
+            "% not only this benchmark.",
+            "",
+            CITATION,
+        ]
+        for model in sorted(set(self.models_used)):
+            entry = MODEL_CITATIONS.get(model)
+            if entry:
+                entries.extend(["", entry])
+        return "\n".join(entries) + "\n"
+
+    def write(self, out_dir: pathlib.Path) -> tuple[pathlib.Path, pathlib.Path]:
+        """Write the report card and CITATIONS.bib into ``out_dir``."""
+        out_dir.mkdir(parents=True, exist_ok=True)
+        card = out_dir / f"report_{self.detector}.txt"
+        bib = out_dir / "CITATIONS.bib"
+        card.write_text(self.render() + "\n")
+        bib.write_text(self.citations())
+        return card, bib

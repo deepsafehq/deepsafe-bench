@@ -52,17 +52,55 @@ from the shipped prediction matrix, are in [BENCHMARK.md](BENCHMARK.md).
 ## What you get
 
 ```bash
-deepsafe detect  suspicious.mp4           # 24 models + calibrated ensemble verdict
-deepsafe eval    --model mine.py          # score any detector, 411 generators, 6 attacks
-deepsafe fit     --data ./labeled/        # adapt to your domain, then prove it generalized
+pip install deepsafe-bench
+```
+
+That install has **no dependencies**. Two of the three verbs work immediately:
+
+```bash
+# Reproduce any published number, no media and no GPU required
+deepsafe eval --baseline ensemble --modality video
+deepsafe eval --list-baselines
+
+# Score your own detector: any .py exposing predict(path) -> float
+deepsafe eval --model my_detector.py --tier small --out ./results
+
+# Adapt the ensemble to your labeled data, then find out if it generalized
+deepsafe fit --tier 1
 ```
 
 `eval` always reports in-distribution and held-out-generator performance
 separately. That separation is not configurable.
 
-`fit` runs a generalization check after every adaptation and tells you when your
-in-distribution gains did not transfer. It is designed to catch your own
-overfitting rather than flatter it.
+`fit` splits **by generator, not by sample**, and reports what happened on
+generators it never trained on. On our own data it correctly flags that the
+refit overfits: in-distribution AUC 0.9566, held-out 0.9097, against a
+single-best-detector baseline of 0.9221. It is built to catch your overfitting,
+not to flatter it.
+
+`deepsafe detect` needs the models loaded, which means the `[server]` extra and
+roughly 20 GB of VRAM:
+
+```bash
+pip install "deepsafe-bench[server,hub]"
+bash setup.sh                    # pulls ~44 GB of weights and code from HuggingFace
+cd apps/inference && python server.py
+deepsafe detect suspicious.mp4
+```
+
+### Fine-tuning coverage
+
+Tier 1 (ensemble refit, CPU) covers the whole stack. Tiers 2 and 3 need a GPU
+and are implemented per model; **9 of 19 detection models have a verified
+path**, the rest raise a pointer to upstream training instructions:
+
+```python
+from deepsafe.fit_gpu import support_table
+print(support_table())
+```
+
+Adding an adapter for one of the remaining 10 is the best-scoped contribution
+available. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Models
 

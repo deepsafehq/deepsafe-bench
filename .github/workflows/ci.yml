@@ -48,6 +48,14 @@ jobs:
       - uses: astral-sh/setup-uv@v5
       - name: Lint
         run: uvx ruff check . || true
+      - name: Package tests
+        # deepsafe eval and fit --tier 1 have no third-party dependencies, so
+        # these run anywhere and gate the published benchmark numbers.
+        run: PYTHONPATH=src uv run --python 3.11 --with pytest pytest tests/unit -q
+      - name: CLI smoke test
+        run: |
+          PYTHONPATH=src uv run --python 3.11 python -m deepsafe --version
+          PYTHONPATH=src uv run --python 3.11 python -m deepsafe eval --baseline ensemble --modality video
       - name: Gateway tests
         # test_trustmark*, test_c2pa_improvements import apps/inference model
         # wrappers, which pull in torch. Those run in the GPU job, not here.
