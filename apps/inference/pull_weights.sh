@@ -24,12 +24,25 @@ from huggingface_hub import snapshot_download
 import os
 token = os.environ.get('HUGGINGFACE_TOKEN') or os.environ.get('HF_TOKEN') or None
 print('Downloading weights (deepsafe/deepsafe-services)...')
+# Skip what the current lineup does not use:
+#   aasist3 / sonics were removed from the registry (1.4 GB)
+#   Dockerfile / app.py / requirements.txt are leftovers from the pre-2026-04
+#   microservice architecture and are not read by the monolith server.
 snapshot_download(
     'deepsafe/deepsafe-services',
     repo_type='model',
     local_dir='./services_weights',
     max_workers=4,
     token=token,
+    ignore_patterns=[
+        'audio/aasist3/**',
+        'audio/sonics/**',
+        'ensemble-core/**',
+        '**/Dockerfile',
+        '**/app.py',
+        '**/requirements.txt',
+        '**/.dockerignore',
+    ],
 )
 print('Downloading model code (deepsafe/model-code)...')
 snapshot_download(

@@ -1,20 +1,24 @@
 ---
 title: DeepSafe API
-description: Detect deepfakes in images, audio, and video with a single API call.
+description: Run 24 deepfake detection models behind one self-hosted API.
 ---
+
+DeepSafe is self-hosted. There is no account, no API key to buy, and no
+hosted endpoint. You run it on your own hardware and it answers on
+`localhost`.
 
 <CardGroup cols={2}>
   <Card title="Quickstart" icon="rocket" href="/quickstart">
-    Get your API key and make your first detection in under 2 minutes.
+    Get the server running and make your first detection.
   </Card>
   <Card title="Authentication" icon="lock" href="/authentication">
-    Learn how to authenticate your API requests with API keys.
+    Optional. Off by default, and how to turn it on.
   </Card>
   <Card title="Endpoints" icon="code" href="/endpoints">
-    Full reference for the detect, results, and usage endpoints.
+    Full reference for detect, results, and usage.
   </Card>
   <Card title="Errors & Limits" icon="alert-triangle" href="/errors">
-    Error codes, rate limits, and how to handle them.
+    Error codes and what they mean.
   </Card>
 </CardGroup>
 
@@ -28,12 +32,29 @@ description: Detect deepfakes in images, audio, and video with a single API call
 
 Maximum file size: **100MB**.
 
-## Pricing
+## Read this before you trust a verdict
 
-| Plan | Price | Scans | Rate Limit |
-|------|-------|-------|------------|
-| Free | $0 | 200 (lifetime) | 5 req/min, 10/day |
-| Starter | $29/mo | 2,000/month | 20 req/min |
-| Pro | $99/mo | 10,000/month | 60 req/min |
+A detection score is an estimate, not evidence. Measured across 411
+generators, the ensemble catches **66.2% of fake media at a 6.5% false
+positive rate**, and the misses are concentrated rather than spread evenly:
 
-All plans include all media types. 1 scan = 1 file, regardless of type or size.
+| Generator | Caught |
+|---|---|
+| Hunyuan (video) | 1.7% |
+| Sora (video) | 7.0% |
+| Veo (video) | 8.0% |
+| Stable Diffusion 1.4 (image) | 100% |
+| Midjourney v5 (image) | 100% |
+
+Detection is strong on the 2022-2023 diffusion models the research was built
+around and weak on recent video generators. Do not use a score to accuse
+anyone of anything. Full results are in
+[BENCHMARK.md](https://github.com/deepsafehq/deepsafe-bench/blob/main/BENCHMARK.md).
+
+When a provenance signal is present, such as a C2PA manifest or a watermark,
+it is far stronger evidence than any model score.
+
+## Cost
+
+Free for non-commercial use under PolyForm Noncommercial 1.0.0. You pay for
+your own GPU and nothing else.

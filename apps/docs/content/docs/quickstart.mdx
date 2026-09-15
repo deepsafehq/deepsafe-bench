@@ -1,21 +1,46 @@
 ---
 title: Quickstart
-description: Make your first deepfake detection in under 2 minutes.
+description: Run the detection API on your own machine.
 ---
 
-## 1. Get an API Key
+## 1. Install
 
-Sign up at [localhost:3000](http://localhost:3000) and create an API key from the **API Keys** page.
+```bash
+git clone https://github.com/deepsafehq/deepsafe-bench.git
+cd deepsafe-bench
+bash setup.sh
+```
 
-## 2. Make Your First Request
+`setup.sh` pulls roughly 44 GB of model weights and code from HuggingFace. No
+token is required; the repositories are public.
+
+Requires a CUDA GPU with 24 GB or more of VRAM for the full lineup, NVIDIA
+driver 535+, CUDA 12.1+, and Python 3.11 or 3.12. Load a subset on a smaller
+card with `DEEPSAFE_MODELS=npr,aide`.
+
+## 2. Start the server
+
+```bash
+# The models
+cd apps/inference && PYTHONPATH=.:../../packages/shared python server.py
+
+# The API, in another terminal
+cd apps/gateway && PYTHONPATH=.:../../packages/shared uvicorn main:app --port 8000
+```
+
+The gateway runs with no configuration at all. It uses SQLite and no
+authentication, which is what you want on your own machine.
+
+## 3. Make a request
+
+No API key needed locally:
 
 ```bash title="cURL"
 curl -X POST http://localhost:8000/v1/detect \
-  -H "Authorization: Bearer YOUR_API_KEY" \
   -F "file=@photo.jpg"
 ```
 
-## 3. Get Your Result
+## 4. Read the result
 
 ```json title="Response (200 OK)"
 {
@@ -27,15 +52,19 @@ curl -X POST http://localhost:8000/v1/detect \
 }
 ```
 
-That's it. The `verdict` field tells you if the media is `real` or `fake`, and `confidence` gives you the probability score (0.0 to 1.0).
+`verdict` is `real` or `fake`, and `confidence` is the probability in
+[0.0, 1.0]. Treat it as an estimate: see the accuracy figures on the
+[overview](/) before acting on one.
+
+Interactive docs are served at `http://localhost:8000/docs`.
 
 ## What's Next?
 
 <CardGroup cols={2}>
   <Card title="Authentication" icon="lock" href="/authentication">
-    Learn about API keys, security, and key management.
+    Required before you expose the API to a network.
   </Card>
   <Card title="Endpoints" icon="code" href="/endpoints">
-    Explore sync vs async detection, results polling, and usage tracking.
+    Sync vs async detection, results polling, usage.
   </Card>
 </CardGroup>

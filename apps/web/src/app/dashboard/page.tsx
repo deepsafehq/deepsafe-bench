@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { AppNav } from "@/components/app-nav";
 import { useAuth } from "@/components/auth-provider";
+import { AuthDisabledNotice } from "@/components/auth-disabled-notice";
 import {
   Activity,
   Zap,
@@ -62,7 +63,9 @@ const MEDIA_FILTERS = ["all", "image", "audio", "video"] as const;
 type MediaFilter = (typeof MEDIA_FILTERS)[number];
 
 export default function DashboardPage() {
-  const { session, isLoading: authLoading, user } = useAuth();
+  const { session, isLoading: authLoading, user , supabase } = useAuth();
+  // No Supabase client means auth is not configured for this build.
+  const authConfigured = Boolean(supabase);
   const [loading, setLoading] = useState(true);
   const [fetchError, setFetchError] = useState<string | null>(null);
   const [plan, setPlan] = useState<PlanInfo | null>(null);
@@ -124,13 +127,26 @@ export default function DashboardPage() {
   const usagePercent = plan
     ? Math.min((plan.scans_used / plan.scans_limit) * 100, 100)
     : 0;
-  const scansRemaining = plan ? plan.scans_limit - plan.scans_used : 0;
-  const remainingColor =
-    plan && scansRemaining / plan.scans_limit > 0.5
+  // scans_limit is null on an unmetered (self-hosted) plan, which is not zero.
+  const isUnmetered = !plan || plan.scans_limit == null;
+  const scansRemaining = isUnmetered
+    ? null
+    : (plan!.scans_limit as number) - plan!.scans_used;
+  const usedFraction =
+    isUnmetered || !plan!.scans_limit
+      ? 0
+      : (scansRemaining as number) / (plan!.scans_limit as number);
+  const remainingColor = isUnmetered
+    ? "#34d399"
+    : usedFraction > 0.5
       ? "#34d399"
-      : scansRemaining / (plan?.scans_limit || 1) > 0.2
+      : usedFraction > 0.2
         ? "#fb923c"
         : "#f87171";
+
+  if (!authConfigured) {
+    return <AuthDisabledNotice page="The dashboard" />;
+  }
 
   return (
     <div
@@ -170,7 +186,7 @@ export default function DashboardPage() {
               <KpiCard
                 icon={Zap}
                 label="Remaining"
-                value={String(scansRemaining)}
+                value={scansRemaining === null ? "Unlimited" : String(scansRemaining)}
                 color={remainingColor}
               />
               <KpiCard

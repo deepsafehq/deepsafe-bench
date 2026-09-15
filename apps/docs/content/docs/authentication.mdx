@@ -1,16 +1,32 @@
 ---
 title: Authentication
-description: How to authenticate your API requests with API keys.
+description: Optional. Off by default, and how to enable it.
 ---
 
-All API requests require an API key passed as a Bearer token in the `Authorization` header.
+Authentication is **off by default**. On a local install you call the API with
+no credentials at all, which is the whole point of self-hosting.
+
+Turn it on before you expose the gateway to a network:
+
+```bash
+DEEPSAFE_REQUIRE_AUTH=true
+```
+
+It is enabled automatically when `DEEPSAFE_ENV=production`, which also requires
+a real `DATABASE_URL` and refuses to start without one.
 
 ## Getting a Key
 
-1. Sign up at [localhost:3000](http://localhost:3000)
-2. Go to **API Keys** in the dashboard
-3. Click **Create Key** and give it a name
-4. Copy the key immediately. It is shown only once.
+Only relevant once auth is enabled. Keys are issued by your own gateway, not
+by us:
+
+```bash
+curl -X POST http://localhost:8000/api/keys \
+  -H "Content-Type: application/json" \
+  -d '{"name": "my-key"}'
+```
+
+The key is shown once. Store it; only its hash is kept.
 
 ## Using Your Key
 

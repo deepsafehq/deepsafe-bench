@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { AppNav } from "@/components/app-nav";
 import { Key, Plus, Trash2, Copy, Check } from "lucide-react";
 import { useAuth } from "@/components/auth-provider";
+import { AuthDisabledNotice } from "@/components/auth-disabled-notice";
 
 import { API_URL } from "@/lib/api";
 
@@ -19,7 +20,9 @@ interface ApiKeyRow {
 }
 
 export default function ApiKeysPage() {
-  const { session, isLoading: authLoading, user } = useAuth();
+  const { session, isLoading: authLoading, user , supabase } = useAuth();
+  // No Supabase client means auth is not configured for this build.
+  const authConfigured = Boolean(supabase);
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [keys, setKeys] = useState<ApiKeyRow[]>([]);
   const [loading, setLoading] = useState(true);
@@ -117,6 +120,10 @@ export default function ApiKeysPage() {
   -H "Authorization: Bearer ${createdKey}" \\
   -F "file=@photo.jpg"`
     : "";
+
+  if (!authConfigured) {
+    return <AuthDisabledNotice page="API key management" />;
+  }
 
   return (
     <div

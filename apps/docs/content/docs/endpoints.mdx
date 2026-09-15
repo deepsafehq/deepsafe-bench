@@ -23,7 +23,7 @@ curl -X POST http://localhost:8000/v1/detect \
 |------|------|----------|-------------|
 | `file` | binary | Yes | Image, audio, or video file (max 100MB) |
 | `media_type` | string | No | `image`, `audio`, or `video`. Auto-detected if omitted. |
-| `async` | boolean | No | Default `false`. Set `true` for async processing (Starter+ plans). |
+| `async` | boolean | No | Default `false`. Set `true` for async processing (requires Redis and Celery). |
 | `sensitivity` | string | No | Detection sensitivity: `balanced` (default), `strict` (fewer false positives), or `sensitive` (fewer false negatives). |
 
 ### Response (Synchronous, 200 OK)

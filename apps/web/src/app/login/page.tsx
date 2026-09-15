@@ -12,9 +12,12 @@ import {
 } from "lucide-react";
 import { DeepSafeLogo } from "@/components/logo";
 import { useAuth } from "@/components/auth-provider";
+import { AuthDisabledNotice } from "@/components/auth-disabled-notice";
 
 export default function LoginPage() {
   const { user, supabase, isLoading: authLoading } = useAuth();
+  // No Supabase client means auth is not configured for this build.
+  const authConfigured = Boolean(supabase);
   const [isLoginMode, setIsLoginMode] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
@@ -31,6 +34,10 @@ export default function LoginPage() {
 
   // AuthProvider handles redirect for authenticated users on /login.
   // If still loading or user is set, don't render the form.
+  if (!authConfigured) {
+    return <AuthDisabledNotice page="Sign in" />;
+  }
+
   if (authLoading || user) {
     return <div data-theme="app" className="min-h-screen bg-background" />;
   }

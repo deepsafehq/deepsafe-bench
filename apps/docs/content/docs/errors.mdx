@@ -19,7 +19,7 @@ All errors return a consistent JSON structure:
 | HTTP | Code | Description |
 |------|------|-------------|
 | `401` | `unauthorized` | Missing, malformed, or revoked API key |
-| `402` | `quota_exceeded` | Scan limit reached. Upgrade plan to continue. |
+| `402` | `quota_exceeded` | Scan limit reached. Only occurs when auth and tiers are enabled. |
 | `402` | `async_not_allowed` | Async mode requires a paid plan (API key users) |
 | `400` | `empty_file` | Uploaded file is empty |
 | `404` | `not_found` | Detection ID not found |
@@ -31,13 +31,19 @@ All errors return a consistent JSON structure:
 
 ## Rate Limits
 
-Each plan has different rate limits:
+A self-hosted install is **unmetered**. With auth disabled the gateway uses the
+`unlimited` tier, which sets no per-minute, daily or monthly cap and does not
+require Redis.
 
-| Plan | Requests/Min | Daily Limit | Scans |
+Tiers exist only if you enable auth and want to meter your own users. The
+defaults are in `apps/gateway/rate_limiter.py` and are yours to change:
+
+| Tier | Requests/Min | Daily Limit | Scans |
 |------|-------------|-------------|-------|
-| Free | 5 | 10 | 200 (lifetime) |
-| Starter | 20 | None | 2,000/month |
-| Pro | 60 | None | 10,000/month |
+| unlimited | None | None | None |
+| free | 5 | 10 | 200 (lifetime) |
+| starter | 20 | None | 2,000/month |
+| pro | 60 | None | 10,000/month |
 
 ### Rate Limit Headers
 
