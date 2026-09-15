@@ -22,23 +22,28 @@ reproducibility, not to claim ownership.
 | Model | License | Upstream |
 |---|---|---|
 | AIDE | MIT | https://github.com/shilinyan99/AIDE (arXiv:2406.19435) |
-| CO-SPY | MIT | https://github.com/Megum1/CO-SPY (arXiv:2503.18286) |
-| Universal (UniversalFakeDetect) | MIT | https://github.com/Yuheng-Li/UniversalFakeDetect (arXiv:2302.10174) |
+| CO-SPY | MIT | https://github.com/Megum1/CO-SPY (CVPR 2025, arXiv:2503.18286) |
+| Universal (UniversalFakeDetect) | MIT | https://github.com/Yuheng-Li/UniversalFakeDetect (CVPR 2023, arXiv:2302.10174) |
 | Yermandy (GenD) | MIT | https://github.com/yermandy/GenD (arXiv:2508.06248) |
-| ShiftySpeech | MIT | *upstream URL to be verified during mirroring* |
-| PwTF-DVD | MIT | arXiv:2507.02398 (*repo URL to be verified*) |
-| RECCE | MIT | arXiv (*repo URL to be verified*) |
-| SafeEar | CC-BY-4.0 | arXiv:2409.09272 (*repo URL to be verified*) |
-| FSD (Forensic Self-Descriptions) | **CC-BY-NC-SA-4.0** | https://github.com/ductai199x/Forensic-Self-Descriptions-CVPR25 (arXiv:2503.21003) |
-| Effort | *no license file upstream* | https://github.com/YZY-stack/Effort-AIGI-Detection (arXiv:2411.15633) |
-| NPR | *no license file upstream* | https://github.com/chuangchuangtan/NPR-DeepfakeDetection (arXiv:2312.10461) |
-| MINTIME | *no license file upstream* | https://github.com/davide-coccomini/MINTIME-Multi-Identity-size-iNvariant-TIMEsformer-for-Video-Deepfake-Detection (arXiv:2206.13829) |
-| DFD-FCG | *no license file upstream* | arXiv:2404.05583 (*repo URL to be verified*) |
-| LipFD | *no license file upstream* | arXiv:2401.15668 (*repo URL to be verified*) |
-| Nes2Net | *no license file upstream* | *upstream URL to be verified during mirroring* |
-| FakeSTormer | *no license file upstream* | *upstream URL to be verified during mirroring* |
+| ShiftySpeech | MIT | https://github.com/Ashigarg123/ShiftySpeech (arXiv:2502.05674) |
+| PwTF-DVD | MIT | https://github.com/rama0126/PwTF-DVD (ICCV 2025, arXiv:2507.02398) |
+| RECCE | MIT | https://github.com/VISION-SJTU/RECCE (CVPR 2022) |
+| SafeEar | CC-BY-4.0 | https://github.com/LetterLiGo/SafeEar (ACM CCS 2024, arXiv:2409.09272) |
+| FSD (Forensic Self-Descriptions) | **CC-BY-NC-SA-4.0** | https://github.com/ductai199x/Forensic-Self-Descriptions-CVPR25 (CVPR 2025, arXiv:2503.21003) |
+| Effort | *no license file upstream* | https://github.com/YZY-stack/Effort-AIGI-Detection (ICML 2025, arXiv:2411.15633) |
+| NPR | *no license file upstream* | https://github.com/chuangchuangtan/NPR-DeepfakeDetection (CVPR 2024, arXiv:2312.10461) |
+| MINTIME | *no license file upstream* | https://github.com/davide-coccomini/MINTIME-Multi-Identity-size-iNvariant-TIMEsformer-for-Video-Deepfake-Detection (IEEE T-IFS 2024, arXiv:2206.13829) |
+| DFD-FCG | *no license file upstream* | https://github.com/aiiu-lab/DFD-FCG (CVPR 2025, arXiv:2404.05583) |
+| LipFD | *no license file upstream* | https://github.com/AaronComo/LipFD (NeurIPS 2024, arXiv:2401.15668) |
+| Nes2Net | *no license file upstream* | https://github.com/Liu-Tianchi/Nes2Net (arXiv:2504.05657) |
+| FakeSTormer | *no license file upstream* | https://github.com/10Ring/FakeSTormer (ICCV 2025, arXiv:2501.01184) |
 | NPR-Video | *inherits NPR* | same as NPR |
 | UnivFD-Video | *inherits Universal* | same as Universal |
+
+**A note on ShiftySpeech.** Upstream, ShiftySpeech is a distribution-shift
+*dataset*; the detector it ships is SSL-AASIST (XLSR wav2vec2 + AASIST). We
+refer to the model by the repository name for consistency with our registry,
+but credit belongs to both the ShiftySpeech authors and the AASIST authors.
 
 **SBI** is not third-party code. `apps/inference/models/sbi.py` is a first-party
 reimplementation of the inference-time detector on `efficientnet_pytorch`. Only

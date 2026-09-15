@@ -261,7 +261,7 @@ export function useAnalysis(accessToken: string | null | undefined) {
 
       if (response.status === 402) {
         setError(
-          "You've used all your free scans. Upgrade at deepsafehq.github.io/deepsafe-bench/#pricing for more.",
+          "Scan quota exhausted. Self-host to remove the limit: https://github.com/deepsafehq/deepsafe-bench",
         );
         setIsAnalyzing(false);
         return;

@@ -12,7 +12,7 @@ const steps = [
     number: "02",
     title: "Analyze",
     description:
-      "Our proprietary detection engine examines the media across multiple forensic dimensions simultaneously.",
+      "24 models score the media independently, then a calibrated meta-learner combines them into one number.",
   },
   {
     number: "03",

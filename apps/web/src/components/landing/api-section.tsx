@@ -5,7 +5,7 @@ const features = [
   "REST API with sync and async modes",
   "Flat per-scan pricing for any media type",
   "Confidence-scored verdicts for images, audio, and video",
-  "200 free scans on sign up to get started",
+  "No API key needed to reproduce any published number",
 ];
 
 export function ApiSection() {

@@ -29,7 +29,7 @@ export function Hero() {
           variants={fadeUp}
           className="text-[13px] font-medium tracking-[1.5px] uppercase text-accent mb-6"
         >
-          Enterprise Media Authentication
+          Deepfake Detection Benchmark
         </motion.p>
 
         <motion.h1
@@ -39,7 +39,7 @@ export function Hero() {
           variants={fadeUp}
           className="font-heading text-4xl sm:text-5xl md:text-[64px] font-light tracking-[-2px] leading-[1.08] text-text-primary mb-6"
         >
-          Verify what&apos;s real.
+          How well does detection actually work?
         </motion.h1>
 
         <motion.p
@@ -49,9 +49,7 @@ export function Hero() {
           variants={fadeUp}
           className="text-lg text-text-secondary max-w-[560px] leading-relaxed mb-10"
         >
-          DeepSafe&apos;s proprietary detection engine analyzes media with
-          military-grade precision. Upload any image, video, or audio file and
-          get a verdict in seconds.
+          We ran 24 detection models across 411 generators and published what happened, including the failures. The ensemble catches 66.2% of fakes and misses 93% of Sora video. Free for non-commercial use.
         </motion.p>
 
         <motion.div
@@ -62,10 +60,10 @@ export function Hero() {
           className="flex flex-col sm:flex-row items-center gap-4 mb-4"
         >
           <Link
-            href="http://localhost:3000/login"
+            href="/benchmark"
             className="cta-animated h-12 px-8 flex items-center gap-2 text-sm font-medium text-white rounded-full"
           >
-            Start Scanning
+            View the benchmark
             <ArrowRight className="w-4 h-4" />
           </Link>
           <a
@@ -75,7 +73,7 @@ export function Hero() {
             className="text-sm text-text-secondary hover:text-accent transition-colors flex items-center gap-1"
             style={{ transitionDuration: "var(--duration-fast)" }}
           >
-            View Documentation
+            Read the docs
             <ArrowRight className="w-3.5 h-3.5" />
           </a>
         </motion.div>
@@ -87,7 +85,7 @@ export function Hero() {
           variants={fadeUp}
           className="text-sm text-text-tertiary"
         >
-          No credit card required. 200 free scans on sign up.
+          PolyForm Noncommercial. Source-available, not open source.
         </motion.p>
       </div>
     </section>

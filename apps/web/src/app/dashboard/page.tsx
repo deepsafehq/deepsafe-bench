@@ -200,7 +200,7 @@ export default function DashboardPage() {
                 </span>
                 {plan?.tier === "free" && (
                   <a
-                    href="https://deepsafehq.github.io/deepsafe-bench/#pricing"
+                    href="https://github.com/deepsafehq/deepsafe-bench"
                     className="px-3 py-1.5 text-xs font-medium bg-accent text-accent-foreground rounded-md hover:bg-accent-hover transition-colors"
                   >
                     Upgrade
