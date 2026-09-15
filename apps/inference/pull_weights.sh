@@ -53,6 +53,14 @@ snapshot_download(
     max_workers=4,
     token=token,
 )
+print('Downloading ensemble meta-learners (deepsafe/ensemble)...')
+snapshot_download(
+    'deepsafe/ensemble',
+    repo_type='model',
+    local_dir='./models/ensemble/artifacts',
+    max_workers=4,
+    token=token,
+)
 print('Download complete!')
 "
 

@@ -147,7 +147,10 @@ available. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 All 24 run in a single process with one CUDA context. Model code and weights are
 mirrored on HuggingFace so setup keeps working after upstream repositories and
-paper download links rot, which in this field they reliably do.
+paper download links rot, which in this field they reliably do. The ensemble
+meta-learners are published separately at
+[deepsafe/ensemble](https://huggingface.co/deepsafe/ensemble); unlike the models
+they are first-party.
 
 Every model is the work of its original authors under its own license. See
 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md), which includes an unconditional
