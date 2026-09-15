@@ -47,10 +47,10 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="#pricing"
+                  href="/benchmark"
                   className="hover:text-text-primary transition-colors"
                 >
-                  Pricing
+                  Benchmark
                 </a>
               </li>
             </ul>

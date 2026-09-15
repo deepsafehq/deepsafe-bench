@@ -24,6 +24,12 @@ jobs:
         with: { node-version: 22, cache: pnpm }
       - run: pnpm install --frozen-lockfile
 
+      # Regenerate the explorer data from the prediction matrix so the site can
+      # never drift from the published numbers.
+      - uses: astral-sh/setup-uv@v5
+      - name: Build benchmark data
+        run: uv run --python 3.11 python eval/scripts/build_explorer_data.py
+
       # Landing site at the root, docs under /docs.
       - name: Build landing
         run: cd apps/web && CI=true NEXT_PUBLIC_BASE_PATH=/deepsafe-bench pnpm build

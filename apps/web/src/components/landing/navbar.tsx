@@ -5,6 +5,12 @@ import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { DeepSafeLogo } from "@/components/logo";
 
+const NAV_ITEMS = [
+  { label: "Benchmark", href: "/benchmark" },
+  { label: "Features", href: "#features" },
+  { label: "Developers", href: "#developers" },
+];
+
 export function LandingNavbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -33,14 +39,14 @@ export function LandingNavbar() {
         </Link>
 
         <nav className="hidden md:flex items-center gap-8 text-sm text-text-secondary">
-          {["Features", "Pricing", "Developers"].map((item) => (
+          {NAV_ITEMS.map((item) => (
             <a
-              key={item}
-              href={`#${item.toLowerCase()}`}
+              key={item.label}
+              href={item.href}
               className="hover:text-text-primary transition-colors"
               style={{ transitionDuration: "var(--duration-fast)" }}
             >
-              {item}
+              {item.label}
             </a>
           ))}
         </nav>
@@ -77,14 +83,14 @@ export function LandingNavbar() {
       {mobileMenuOpen && (
         <div className="md:hidden border-t border-border-subtle bg-[var(--background)]">
           <nav className="flex flex-col px-6 py-4 gap-1">
-            {["Features", "Pricing", "Developers"].map((item) => (
+            {NAV_ITEMS.map((item) => (
               <a
-                key={item}
-                href={`#${item.toLowerCase()}`}
+                key={item.label}
+                href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
                 className="text-sm text-text-secondary hover:text-text-primary py-2"
               >
-                {item}
+                {item.label}
               </a>
             ))}
             <div className="border-t border-border-subtle pt-3 mt-2 flex flex-col gap-2">
