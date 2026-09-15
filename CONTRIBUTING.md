@@ -34,6 +34,19 @@ Open a PR with the generated report card.
 **Add a generator to the eval set.** New generative models ship constantly and
 the benchmark is only useful if it keeps up. Add samples plus a manifest entry.
 
+## Before your first push
+
+Enable the pre-push secret scan:
+
+```bash
+git config core.hooksPath .githooks
+brew install gitleaks    # or: https://github.com/gitleaks/gitleaks
+```
+
+CI scans too, but CI runs *after* the push. This repository is public, so a
+credential that reaches the remote is compromised the moment it lands, even if
+you delete it seconds later. The hook is the gate that actually protects you.
+
 ## Rules
 
 - Follow the style guides in `docs/styleguides/`.

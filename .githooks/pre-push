@@ -1,0 +1,58 @@
+#!/bin/bash
+# Block a push that would publish a secret.
+#
+# CI also scans, but CI runs *after* the push, and a secret that reaches a
+# public remote is compromised the moment it lands. This is the gate that
+# actually matters.
+#
+# Enable it once per clone:
+#     git config core.hooksPath .githooks
+#
+# Bypass only when you are certain (a documented placeholder, say):
+#     git push --no-verify
+set -uo pipefail
+
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+cd "$REPO_ROOT"
+
+if ! command -v gitleaks >/dev/null 2>&1; then
+    echo "pre-push: gitleaks not installed, skipping the secret scan."
+    echo "  Install it:  brew install gitleaks"
+    echo "  This repository is public. Push without a scan at your own risk."
+    exit 0
+fi
+
+echo "pre-push: scanning history for secrets..."
+if ! gitleaks detect --no-banner --redact --config .gitleaks.toml; then
+    cat <<'MSG'
+
+PUSH BLOCKED: gitleaks found a secret.
+
+This repository is public. Anything pushed must be assumed permanently
+archived by third parties, even if you delete it a minute later.
+
+  - A real credential: remove it, rotate it, then rewrite the commit.
+  - A documented placeholder: add an allowlist entry to .gitleaks.toml.
+
+Never allowlist a real credential.
+MSG
+    exit 1
+fi
+
+# Nothing sensitive belongs in a repo whose assets all live on HuggingFace.
+BIG=$(git ls-files | xargs -r du -k 2>/dev/null | awk '$1 > 5120 {print "  " $2}')
+if [ -n "$BIG" ]; then
+    echo "PUSH BLOCKED: files over 5MB are tracked. Large assets belong on HuggingFace."
+    echo "$BIG"
+    exit 1
+fi
+
+ENVFILES=$(git ls-files | grep -E '(^|/)\.env$' || true)
+if [ -n "$ENVFILES" ]; then
+    echo "PUSH BLOCKED: a .env file is tracked:"
+    echo "$ENVFILES"
+    exit 1
+fi
+
+echo "pre-push: clean."
+exit 0

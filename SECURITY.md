@@ -8,6 +8,12 @@ Please do not open a public issue for a security problem.
 
 Expect an acknowledgement within 7 days and an assessment within 30 days.
 
+## If you find a credential in this repository
+
+Report it privately using the link above, do not open a public issue, and we
+will rotate it. Every push is scanned by `.githooks/pre-push` and by CI, but
+neither is a guarantee.
+
 ## Scope
 
 In scope:
