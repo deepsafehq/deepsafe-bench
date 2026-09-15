@@ -301,7 +301,18 @@ class TestValidAudioUpload:
 
 
 class TestMissingAuth:
-    """Requests without an Authorization header must return 401."""
+    """With auth required, requests without a valid header must return 401.
+
+    Auth is optional by default so a local install works unconfigured, so these
+    tests pin REQUIRE_AUTH on explicitly. TestAuthDisabled below covers the
+    other mode.
+    """
+
+    @pytest.fixture(autouse=True)
+    def _require_auth(self, monkeypatch):
+        import routers.v1 as v1
+
+        monkeypatch.setattr(v1, "REQUIRE_AUTH", True)
 
     def test_no_header_returns_401(self, test_client):
         response = test_client.post(
@@ -862,3 +873,29 @@ class TestFileTooLarge:
         body = response.json()
         # The middleware returns {"detail": "...", "request_id": "..."}.
         assert "detail" in body
+
+
+class TestAuthDisabled:
+    """With auth disabled, the API serves a local user instead of rejecting."""
+
+    @pytest.fixture(autouse=True)
+    def _disable_auth(self, monkeypatch):
+        import routers.v1 as v1
+
+        monkeypatch.setattr(v1, "REQUIRE_AUTH", False)
+
+    def test_no_header_is_not_rejected(self, test_client):
+        """A self-hosted install must not need credentials to call the API."""
+        response = test_client.post(
+            "/v1/detect",
+            files={"file": ("photo.jpg", b"data", "image/jpeg")},
+        )
+        assert response.status_code != 401
+
+    def test_usage_reports_an_unmetered_plan(self, test_client):
+        """Quota fields are null, not zero, when nothing is being metered."""
+        response = test_client.get("/v1/usage")
+        assert response.status_code == 200
+        body = response.json()
+        assert body["scans_limit"] is None
+        assert body["scans_remaining"] is None

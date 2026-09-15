@@ -1,6 +1,6 @@
 #!/bin/bash
 # Pull model weights from HuggingFace into models/ directories.
-# Usage: bash monolith/pull_weights.sh
+# Usage: bash apps/inference/pull_weights.sh
 #
 # No token required: deepsafe/deepsafe-services is public.
 # HUGGINGFACE_TOKEN is honoured if set (useful behind a proxy or for rate limits).

@@ -28,6 +28,8 @@ from celery_app import celery_app
 from config import (
     ALL_MODEL_CONFIGS,
     CONFIG_FILE_PATH_FROM_ENV,
+    DEEPSAFE_ENV,
+    IS_PRODUCTION,
     MAX_GENERAL_PAYLOAD_SIZE_BYTES,
     SUPPORTED_MEDIA_TYPES,
     get_environment_variable,
@@ -65,7 +67,7 @@ if _sentry_dsn:
         dsn=_sentry_dsn,
         traces_sample_rate=0.2,
         send_default_pii=False,
-        environment=os.getenv("DEEPSAFE_ENV", "production"),
+        environment=DEEPSAFE_ENV,
     )
     logger.info("Sentry initialized.")
 else:
@@ -116,7 +118,7 @@ def run_detection(
 
 
 # --- FastAPI Application ---
-_is_production = os.getenv("DEEPSAFE_ENV", "production").lower() == "production"
+_is_production = IS_PRODUCTION
 
 
 @asynccontextmanager
@@ -181,8 +183,8 @@ _cors_origins = [
     "http://localhost:3000",
     "https://deepsafehq.github.io/deepsafe-bench/docs",
 ]
-if os.getenv("DEEPSAFE_ENV", "production") != "production":
-    _cors_origins.append("http://localhost:3000")
+if not IS_PRODUCTION:
+    _cors_origins.append("http://127.0.0.1:3000")
 
 app.add_middleware(
     CORSMiddleware,

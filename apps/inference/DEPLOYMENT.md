@@ -54,17 +54,17 @@ Browser -> localhost:3000 (Cloudflare Pages, static)
 
 ```bash
 # If the VM has GitHub access:
-git clone --depth 1 https://github.com/deepsafehq/deepsafe.git /workspace/DeepSafe
-cd /workspace/DeepSafe
+git clone --depth 1 https://github.com/deepsafehq/deepsafe-bench.git /workspace/deepsafe-bench
+cd /workspace/deepsafe-bench
 
 # Or use a PAT for private repo:
-git clone --depth 1 https://x-access-token:YOUR_GH_PAT@github.com/deepsafehq/deepsafe.git /workspace/DeepSafe
+git clone --depth 1 https://github.com/deepsafehq/deepsafe-bench.git /workspace/deepsafe-bench
 ```
 
 ### Step 2: Install PyTorch + dependencies
 
 ```bash
-cd /workspace/DeepSafe
+cd /workspace/deepsafe-bench
 
 # PyTorch 2.5.1 + CUDA 12.1
 pip install torch==2.5.1 torchvision==0.20.1 torchaudio==2.5.1 \
@@ -173,7 +173,7 @@ EOF
 The gateway needs a `deepsafe_config.json` mapping model names to inference server endpoints:
 
 ```bash
-cd /workspace/DeepSafe/apps/inference
+cd /workspace/deepsafe-bench/apps/inference
 python3 -c "
 from config import MODEL_REGISTRY
 import json
@@ -195,15 +195,15 @@ print(f'Config: {sum(len(v[\"model_endpoints\"]) for v in config[\"media_types\"
 ### Step 10: Create gateway environment file
 
 ```bash
-cat > /workspace/DeepSafe/apps/gateway/.env.vm << 'EOF'
-DEEPSAFE_CONFIG_FILE_PATH=/workspace/DeepSafe/deepsafe_config.json
+cat > /workspace/deepsafe-bench/apps/gateway/.env.vm << 'EOF'
+DEEPSAFE_CONFIG_FILE_PATH=/workspace/deepsafe-bench/deepsafe_config.json
 DEEPSAFE_ENV=production
 DATABASE_URL=postgresql://YOUR_SUPABASE_CONNECTION_STRING
 SUPABASE_URL=https://YOUR_PROJECT.supabase.co
 SUPABASE_JWT_SECRET=YOUR_JWT_SECRET
 CELERY_BROKER_URL=redis://localhost:6379/0
 CELERY_RESULT_BACKEND=redis://localhost:6379/0
-META_MODEL_ARTIFACTS_DIR=/workspace/DeepSafe/models/ensemble/artifacts
+META_MODEL_ARTIFACTS_DIR=/workspace/deepsafe-bench/models/ensemble/artifacts
 PORT=8000
 WORKERS=1
 EOF
@@ -222,13 +222,13 @@ Or manually:
 redis-server --daemonize yes
 
 # 2. Inference Server (port 8001, ~7 min to load 24 models)
-cd /workspace/DeepSafe/apps/inference
+cd /workspace/deepsafe-bench/apps/inference
 DEEPSAFE_PORT=8001 nohup python3 server.py > /tmp/inference.log 2>&1 &
 
 # 3. Gateway (port 8000)
 set -a && source apps/gateway/.env.vm && set +a
-export PYTHONPATH=/workspace/DeepSafe/apps/gateway
-cd /workspace/DeepSafe/apps/gateway
+export PYTHONPATH=/workspace/deepsafe-bench/apps/gateway
+cd /workspace/deepsafe-bench/apps/gateway
 nohup python3 main.py > /tmp/gateway.log 2>&1 &
 
 # 4. Cloudflared

@@ -14,6 +14,31 @@ from typing import Any, Dict, List, Optional
 
 logger = logging.getLogger(__name__)
 
+# --- Deployment Environment ---
+# Defaults to development so that `git clone && run` produces a working local
+# install. Every production path sets DEEPSAFE_ENV explicitly (see
+# infrastructure/scripts/start_inference.sh and apps/inference/DEPLOYMENT.md),
+# so this default is never what a real deployment runs on.
+DEEPSAFE_ENV: str = os.getenv("DEEPSAFE_ENV", "development").lower()
+IS_PRODUCTION: bool = DEEPSAFE_ENV == "production"
+
+# --- Authentication ---
+# A local install should work the moment it starts, without standing up
+# Supabase to scan one file. Auth is therefore required in production and
+# optional elsewhere. Set DEEPSAFE_REQUIRE_AUTH explicitly to override in
+# either direction; exposing the gateway to a network without auth is
+# unsafe, so turn it on before you do that.
+_require_auth_env = os.getenv("DEEPSAFE_REQUIRE_AUTH", "").strip().lower()
+if _require_auth_env in ("1", "true", "yes", "on"):
+    REQUIRE_AUTH: bool = True
+elif _require_auth_env in ("0", "false", "no", "off"):
+    REQUIRE_AUTH = False
+else:
+    REQUIRE_AUTH = IS_PRODUCTION
+
+# Identity used for every request when auth is disabled.
+LOCAL_USER_ID: str = "local-user"
+
 # --- Constants for Payload Keys and Media Handling ---
 MEDIA_TYPE_PAYLOAD_KEYS: Dict[str, str] = {
     "image": "image_data",

@@ -94,11 +94,31 @@ not to flatter it.
 roughly 20 GB of VRAM:
 
 ```bash
-pip install "deepsafe-bench[server,hub]"
-bash setup.sh                    # pulls ~44 GB of weights and code from HuggingFace
-cd apps/inference && python server.py
-deepsafe detect suspicious.mp4
+git clone https://github.com/deepsafehq/deepsafe-bench.git
+cd deepsafe-bench
+bash setup.sh          # pulls ~44 GB of weights and model code from HuggingFace
 ```
+
+No HuggingFace token is needed; the weights are public. Then start the stack:
+
+```bash
+# Terminal 1: the models
+cd apps/inference && PYTHONPATH=.:../../packages/shared python server.py
+
+# Terminal 2: the API. Runs with no configuration at all, using SQLite and
+# no auth, which is what you want locally.
+cd apps/gateway && PYTHONPATH=.:../../packages/shared uvicorn main:app --port 8000
+
+# Terminal 3: the web UI at http://localhost:3000
+cd apps/web && pnpm install && pnpm dev
+```
+
+Interactive API docs are served at `http://localhost:8000/docs`.
+
+**Before exposing any of this to a network**, set `DEEPSAFE_REQUIRE_AUTH=true`
+and `DEEPSAFE_ENV=production`. Auth is off by default so a local install works
+immediately; production mode requires both auth and a real `DATABASE_URL` and
+refuses to start without them.
 
 ### Fine-tuning coverage
 

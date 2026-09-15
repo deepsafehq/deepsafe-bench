@@ -2,7 +2,7 @@
 # DeepSafe Monolith — One-command setup for fresh GPU systems.
 #
 # Usage:
-#   git clone https://github.com/deepsafehq/deepsafe.git
+#   git clone https://github.com/deepsafehq/deepsafe-bench.git
 #   cd deepsafe
 #   bash apps/inference/setup.sh
 #
@@ -41,13 +41,29 @@ fi
 source "$VENV/bin/activate"
 echo "  Python: $(which python3)"
 
-# ── Step 3: Install PyTorch with CUDA 12.1 ─────────────────────────────────
-echo "[3/8] Installing PyTorch 2.5.1 + CUDA 12.1..."
-uv pip install torch==2.5.1 torchvision==0.20.1 torchaudio==2.5.1 \
-    --index-url https://download.pytorch.org/whl/cu121
+# ── Step 3: Install PyTorch ────────────────────────────────────────────────
+# CUDA wheels only exist for Linux/Windows x86_64. On macOS the cu121 index has
+# no candidate and the install fails outright, so pick the build by platform.
+if [ "$(uname -s)" = "Darwin" ]; then
+    echo "[3/9] Installing PyTorch 2.5.1 (macOS, MPS/CPU)..."
+    uv pip install torch==2.5.1 torchvision==0.20.1 torchaudio==2.5.1
+else
+    echo "[3/9] Installing PyTorch 2.5.1 + CUDA 12.1..."
+    uv pip install torch==2.5.1 torchvision==0.20.1 torchaudio==2.5.1 \
+        --index-url https://download.pytorch.org/whl/cu121
+fi
 
-# Verify CUDA
-python3 -c "import torch; assert torch.cuda.is_available(), 'CUDA not available!'; print(f'  GPU: {torch.cuda.get_device_name(0)}')"
+# Report the accelerator instead of asserting CUDA. The server auto-detects
+# CUDA > MPS > CPU, so a machine without CUDA is slow, not broken.
+python3 -c "
+import torch
+if torch.cuda.is_available():
+    print(f'  Accelerator: CUDA ({torch.cuda.get_device_name(0)})')
+elif getattr(torch.backends, 'mps', None) and torch.backends.mps.is_available():
+    print('  Accelerator: MPS (Apple Silicon). Expect slow video inference.')
+else:
+    print('  Accelerator: CPU only. The full lineup will be very slow.')
+"
 
 # ── Step 4: Install all dependencies ───────────────────────────────────────
 echo "[4/8] Installing dependencies..."
@@ -94,14 +110,10 @@ export HF_HUB_ENABLE_HF_TRANSFER=1
 
 # ── Step 8: Pull model weights + ext_cache from HuggingFace ──────────────
 echo "[8/9] Pulling model weights from HuggingFace..."
+# deepsafe/deepsafe-services and deepsafe/model-code are public: no token
+# needed. HUGGINGFACE_TOKEN is still honoured for rate limits or a proxy.
 if [ -z "${SKIP_WEIGHTS:-}" ]; then
-    export HUGGINGFACE_TOKEN="${HUGGINGFACE_TOKEN:-${HF_TOKEN:-}}"
-    if [ -z "$HUGGINGFACE_TOKEN" ]; then
-        echo "  WARNING: No HUGGINGFACE_TOKEN set. Skipping weight download."
-        echo "  Set HUGGINGFACE_TOKEN and run: bash apps/inference/pull_weights.sh"
-    else
-        bash apps/inference/pull_weights.sh
-    fi
+    bash apps/inference/pull_weights.sh
 else
     echo "  Skipped (SKIP_WEIGHTS=1)"
 fi

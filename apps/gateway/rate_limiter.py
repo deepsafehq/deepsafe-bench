@@ -30,6 +30,9 @@ TIER_LIMITS = {
     "free": {"rpm": 5, "daily": 10, "monthly": 200, "is_monthly": False},
     "starter": {"rpm": 20, "daily": None, "monthly": 2000, "is_monthly": True},
     "pro": {"rpm": 60, "daily": None, "monthly": 10000, "is_monthly": True},
+    # Self-hosted installs run against their own hardware, so metering them
+    # against a plan makes no sense. Used when auth is disabled.
+    "unlimited": {"rpm": None, "daily": None, "monthly": None, "is_monthly": False},
 }
 
 # Lua script: atomic INCR + EXPIRE-on-first-request (fixed window).
@@ -63,14 +66,21 @@ class RateLimiter:
             RateLimitExceeded: If the rpm or daily limit for the tier
                 is exceeded.
         """
-        limits = self._limits[tier]
+        # An unknown tier falls back to the strictest one rather than raising
+        # a KeyError in the middle of a request.
+        limits = self._limits.get(tier) or self._limits["free"]
         rpm_limit = limits["rpm"]
         daily_limit = limits.get("daily")
+
+        # A tier with no per-minute limit is unmetered; skip Redis entirely so
+        # a self-hosted install does not need a Redis server to serve requests.
+        if rpm_limit is None and daily_limit is None:
+            return
 
         rpm_key = f"ratelimit:{identifier}:rpm"
         rpm_count = self._lua_script(keys=[rpm_key], args=[60])
 
-        if rpm_count > rpm_limit:
+        if rpm_limit is not None and rpm_count > rpm_limit:
             raise RateLimitExceeded(retry_after=60)
 
         if daily_limit is not None:

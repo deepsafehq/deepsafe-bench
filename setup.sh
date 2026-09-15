@@ -5,7 +5,7 @@
 # API gateway, frontend, and configuration.
 #
 # Usage:
-#   git clone https://github.com/deepsafehq/deepsafe.git
+#   git clone https://github.com/deepsafehq/deepsafe-bench.git
 #   cd deepsafe
 #   bash setup.sh
 #

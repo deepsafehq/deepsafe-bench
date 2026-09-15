@@ -39,7 +39,7 @@ Reproducible guide for running DeepSafe benchmarking experiments on any cloud GP
 **THE CORRECT DEPLOY SEQUENCE:**
 ```bash
 # 1. Clone from GitHub (has all fixes)
-git clone https://github.com/deepsafehq/deepsafe.git
+git clone https://github.com/deepsafehq/deepsafe-bench.git
 
 # 2. Download ONLY weights/model_code from HuggingFace
 huggingface-cli download deepsafe/deepsafe-services --local-dir services_hf
@@ -62,7 +62,7 @@ Step 4 (`git checkout -- services/`) is the key step that most people forget. Wi
 
 ```bash
 # 1. Clone repo
-git clone https://github.com/deepsafehq/deepsafe.git
+git clone https://github.com/deepsafehq/deepsafe-bench.git
 cd deepsafe
 
 # 2. Pull service weights from HuggingFace

@@ -45,12 +45,17 @@ class DetectionStatus(BaseModel):
 
 
 class UsageResponse(BaseModel):
-    """Scan usage and quota returned by GET /v1/usage."""
+    """Scan usage and quota returned by GET /v1/usage.
+
+    ``scans_limit`` and ``scans_remaining`` are null on an unmetered plan,
+    which is what a self-hosted install running without auth uses. Null means
+    unlimited, not zero.
+    """
 
     plan: str
     scans_used: int
-    scans_limit: int
-    scans_remaining: int
+    scans_limit: Optional[int] = None
+    scans_remaining: Optional[int] = None
     period_start: Optional[str] = None
 
 

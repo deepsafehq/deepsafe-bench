@@ -28,7 +28,7 @@ WEIGHTS_REPO="deepsafe/deepsafe-services"
 if [ ! -d "$REPO_DIR" ]; then
     echo "[1/8] Cloning DeepSafe repository..."
     cd /workspace
-    git clone https://github.com/deepsafehq/deepsafe.git DeepSafe
+    git clone https://github.com/deepsafehq/deepsafe-bench.git deepsafe-bench
     cd "$REPO_DIR"
     git checkout monolith
 else

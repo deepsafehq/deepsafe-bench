@@ -22,6 +22,7 @@ from datetime import datetime, timedelta, timezone
 from typing import Optional
 
 from api_keys import KEY_PREFIX, ApiKey, generate_api_key, hash_key
+from config import LOCAL_USER_ID, REQUIRE_AUTH
 from database import AnalysisHistory, SessionLocal, get_db
 from fastapi import (
     APIRouter,
@@ -39,6 +40,9 @@ from schemas import DetectionResult, DetectionStatus, UsageResponse  # noqa: F40
 from sqlalchemy import func
 
 logger = logging.getLogger(__name__)
+
+# Stand-in token used when DEEPSAFE_REQUIRE_AUTH is off.
+LOCAL_TOKEN = "local"
 
 router = APIRouter(prefix="/v1", tags=["Public API v1"])
 
@@ -148,6 +152,47 @@ def _lookup_api_key(token: str, db) -> ApiKey:
     return api_key
 
 
+def _resolve_local_api_key(db) -> ApiKey:
+    """Return (or create) the billing record used when auth is disabled.
+
+    Quota and rate limiting still run against this record, so the code path is
+    the same one production uses. The tier is unlimited because metering a
+    single self-hosted user against a SaaS plan would be meaningless.
+
+    Args:
+        db: SQLAlchemy DB session.
+
+    Returns:
+        The local ApiKey ORM instance.
+    """
+    api_key = (
+        db.query(ApiKey)
+        .filter(ApiKey.user_id == LOCAL_USER_ID, ApiKey.revoked_at.is_(None))
+        .first()
+    )
+    if api_key is not None:
+        return api_key
+
+    plaintext = generate_api_key()
+    api_key = ApiKey(
+        user_id=LOCAL_USER_ID,
+        key_hash=hash_key(plaintext),
+        key_prefix=plaintext[:16],
+        name="Local (auth disabled)",
+        tier="unlimited",
+        scans_used=0,
+    )
+    db.add(api_key)
+    db.commit()
+    db.refresh(api_key)
+    logger.warning(
+        "Auth is disabled; serving requests as '%s'. Set "
+        "DEEPSAFE_REQUIRE_AUTH=true before exposing this gateway to a network.",
+        LOCAL_USER_ID,
+    )
+    return api_key
+
+
 def _resolve_api_key_for_jwt_user(user_id: str, db) -> ApiKey:
     """Return (or auto-create) the billing ApiKey for a JWT-authenticated user.
 
@@ -203,6 +248,9 @@ def _authenticate(token: str, db) -> AuthResult:
     Raises:
         HTTPException: 401 on invalid key or JWT.
     """
+    if not REQUIRE_AUTH and (token == LOCAL_TOKEN or not token):
+        return AuthResult(api_key=_resolve_local_api_key(db), is_jwt_auth=True)
+
     if token.startswith(KEY_PREFIX):
         api_key = _lookup_api_key(token, db)
         return AuthResult(api_key=api_key, is_jwt_auth=False)
@@ -488,7 +536,14 @@ def _require_auth(request: Request) -> str:
     By using this as a ``Depends()`` parameter, FastAPI resolves it before
     attempting to parse the multipart body.  This ensures unauthenticated
     requests receive 401 rather than 422 (missing file).
+
+    When auth is disabled (the default outside production) a sentinel token is
+    returned instead, so a local install works without any credentials. A
+    caller that does supply a header is still honoured.
     """
+    if not REQUIRE_AUTH:
+        auth = request.headers.get("Authorization", "")
+        return auth[len("Bearer ") :].strip() if auth.startswith("Bearer ") else LOCAL_TOKEN
     return _get_auth_header(request)
 
 
@@ -651,7 +706,7 @@ async def v1_results(detection_id: str, request: Request, db=Depends(get_db)):
         HTTPException: 401 if auth fails, 404 if not found.
     """
     # ---- Auth (must run before format validation to avoid leaking 404) ----
-    token = _get_auth_header(request)
+    token = _require_auth(request)
     auth_result = _authenticate(token, db)
     api_key = auth_result.api_key
 
@@ -758,7 +813,7 @@ async def v1_usage(request: Request, db=Depends(get_db)):
     Raises:
         HTTPException: 401 if auth fails.
     """
-    token = _get_auth_header(request)
+    token = _require_auth(request)
     auth_result = _authenticate(token, db)
     api_key = auth_result.api_key
 
@@ -769,9 +824,12 @@ async def v1_usage(request: Request, db=Depends(get_db)):
     _maybe_reset_monthly_quota(api_key, db)
 
     tier = api_key.tier
-    monthly_limit = TIER_LIMITS.get(tier, {}).get("monthly", 0)
+    # None means unmetered (the self-hosted tier), not zero.
+    monthly_limit = TIER_LIMITS.get(tier, {}).get("monthly")
     scans_used = _get_user_total_scans(api_key.user_id, db)
-    scans_remaining = max(monthly_limit - scans_used, 0)
+    scans_remaining = (
+        None if monthly_limit is None else max(monthly_limit - scans_used, 0)
+    )
 
     return {
         "plan": tier,

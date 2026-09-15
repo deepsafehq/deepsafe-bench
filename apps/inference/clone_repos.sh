@@ -1,8 +1,9 @@
 #!/bin/bash
 # Post-checkout setup: symlinks, patches, directories.
-# Model code repos are now vendored in git — no cloning needed.
+# Model code is installed by pull_weights.sh from the public mirror at
+# huggingface.co/deepsafe/model-code. Run this after that script.
 #
-# Usage: bash monolith/clone_repos.sh
+# Usage: bash apps/inference/clone_repos.sh
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"

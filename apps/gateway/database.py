@@ -26,8 +26,13 @@ from sqlalchemy.orm import DeclarativeBase, sessionmaker
 
 logger = logging.getLogger(__name__)
 
-# Database configuration -- SQLite fallback is only for tests.
-# Production MUST set DATABASE_URL to a PostgreSQL connection string.
+# Database configuration.
+#
+# Production must set DATABASE_URL to PostgreSQL. Local installs should not
+# have to stand up Postgres just to try the thing, so without DATABASE_URL we
+# fall back to a SQLite file and say so. Setting DEEPSAFE_ENV=production
+# restores the hard failure, so a real deployment cannot silently run on
+# SQLite because someone forgot to configure it.
 DATABASE_URL = os.getenv("DATABASE_URL", "")
 if not DATABASE_URL:
     _is_testing = (
@@ -35,13 +40,22 @@ if not DATABASE_URL:
         or "PYTEST_CURRENT_TEST" in os.environ
         or "pytest" in sys.modules
     )
+    from config import IS_PRODUCTION as _is_production
+
     if _is_testing:
         DATABASE_URL = "sqlite:///./deepsafe_test.db"
         logger.info("Using SQLite test database (DATABASE_URL not set).")
-    else:
+    elif _is_production:
         raise RuntimeError(
-            "DATABASE_URL is not set. This is required for production. "
+            "DATABASE_URL is not set and DEEPSAFE_ENV=production. "
             "Set DATABASE_URL to a PostgreSQL connection string."
+        )
+    else:
+        DATABASE_URL = "sqlite:///./deepsafe_local.db"
+        logger.warning(
+            "DATABASE_URL not set; using SQLite at ./deepsafe_local.db. "
+            "Fine for a local install. Set DATABASE_URL to PostgreSQL for "
+            "anything multi-user."
         )
 
 # Ensure SSL for all PostgreSQL connections (required by Supabase).
