@@ -1,14 +1,26 @@
 # DeepSafe
 
-**A benchmark, model zoo, and adaptation toolkit for deepfake detection.**
+**Do deepfake detectors actually work? We tested 24 of them.**
 
-![Models](https://img.shields.io/badge/models-24-06b6d4)
-![Generators](https://img.shields.io/badge/generators-411-8b5cf6)
+![Models](https://img.shields.io/badge/detectors-24-047857)
+![Generators](https://img.shields.io/badge/generators-411-047857)
+![Samples](https://img.shields.io/badge/samples-15%2C499-047857)
 ![License](https://img.shields.io/badge/license-PolyForm%20Noncommercial-orange)
 
-DeepSafe runs 24 detection and provenance models behind one interface, scores
-any detector across 411 generative models, and lets you adapt the stack to your
-own data. It is free for research, education, and personal use.
+The short answer: not as well as the papers say. Our ensemble of 19 published
+detectors catches **66% of fake media**, and only **7% of Sora video**. This
+repository has the code, the data, and the numbers, so you can check that
+yourself rather than take our word for it.
+
+DeepSafe does three things:
+
+| | |
+|---|---|
+| **Detect** | Run 24 models over a file and get one calibrated verdict. |
+| **Evaluate** | Score any detector across 411 AI generators and see where it breaks. |
+| **Adapt** | Retrain on your own labeled data, then find out whether it actually generalized. |
+
+Free for research, education, and personal use.
 
 ## Why this exists
 
