@@ -8,7 +8,6 @@ import { Features } from "@/components/landing/features";
 import { HowItWorks } from "@/components/landing/how-it-works";
 import { ApiSection } from "@/components/landing/api-section";
 import { BottomCta } from "@/components/landing/cta";
-import { ContactForm } from "@/components/landing/contact-form";
 import { Footer } from "@/components/landing/footer";
 
 export default function RootPage() {
@@ -26,7 +25,6 @@ function LandingPage() {
         <HowItWorks />
         <ApiSection />
         <BottomCta />
-        <ContactForm />
       </main>
       <Footer />
     </div>

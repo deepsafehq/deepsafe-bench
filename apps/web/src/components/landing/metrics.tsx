@@ -1,10 +1,12 @@
 import React from "react";
 
+// Every figure here comes from eval/results/predictions_medium.csv.gz and is
+// reproducible with `deepsafe eval`. Nothing on this page is aspirational.
 const stats = [
-  { value: "99.8%", label: "Accuracy" },
-  { value: "<200ms", label: "Latency" },
-  { value: "3", label: "Media Modalities" },
-  { value: "24/7", label: "Always-On API" },
+  { value: "24", label: "Models" },
+  { value: "411", label: "Generators Tested" },
+  { value: "15,499", label: "Samples Scored" },
+  { value: "66.2%", label: "Fakes Caught" },
 ];
 
 export function Metrics() {

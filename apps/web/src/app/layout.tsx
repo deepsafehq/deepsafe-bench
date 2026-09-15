@@ -23,14 +23,18 @@ const inter = Inter({
   display: "swap",
 });
 
+// Metadata icon URLs are not rewritten by Next's basePath, so they must
+// carry the prefix explicitly or they 404 on GitHub Pages.
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 export const metadata: Metadata = {
   title: "DeepSafe - Deepfake Detection Benchmark",
   description:
     "A benchmark for deepfake detection. 24 models scored across 411 generators, reporting where detection actually fails.",
   icons: {
     icon: [
-      { url: "/favicon.svg", type: "image/svg+xml" },
-      { url: "/favicon.ico", sizes: "32x32" },
+      { url: `${BASE}/favicon.svg`, type: "image/svg+xml" },
+      { url: `${BASE}/favicon.ico`, sizes: "32x32" },
     ],
   },
 };

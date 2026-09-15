@@ -5,6 +5,8 @@ import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { DeepSafeLogo } from "@/components/logo";
 
+// Routes must render through next/link: Next only prepends basePath to Link,
+// so a raw <a href="/benchmark"> resolves off-site on GitHub Pages.
 const NAV_ITEMS = [
   { label: "Benchmark", href: "/benchmark" },
   { label: "Features", href: "#features" },
@@ -39,16 +41,27 @@ export function LandingNavbar() {
         </Link>
 
         <nav className="hidden md:flex items-center gap-8 text-sm text-text-secondary">
-          {NAV_ITEMS.map((item) => (
-            <a
-              key={item.label}
-              href={item.href}
-              className="hover:text-text-primary transition-colors"
-              style={{ transitionDuration: "var(--duration-fast)" }}
-            >
-              {item.label}
-            </a>
-          ))}
+          {NAV_ITEMS.map((item) =>
+            item.href.startsWith("/") ? (
+              <Link
+                key={item.label}
+                href={item.href}
+                className="hover:text-text-primary transition-colors"
+                style={{ transitionDuration: "var(--duration-fast)" }}
+              >
+                {item.label}
+              </Link>
+            ) : (
+              <a
+                key={item.label}
+                href={item.href}
+                className="hover:text-text-primary transition-colors"
+                style={{ transitionDuration: "var(--duration-fast)" }}
+              >
+                {item.label}
+              </a>
+            ),
+          )}
         </nav>
 
         <div className="flex items-center gap-4">
@@ -83,16 +96,27 @@ export function LandingNavbar() {
       {mobileMenuOpen && (
         <div className="md:hidden border-t border-border-subtle bg-[var(--background)]">
           <nav className="flex flex-col px-6 py-4 gap-1">
-            {NAV_ITEMS.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-sm text-text-secondary hover:text-text-primary py-2"
-              >
-                {item.label}
-              </a>
-            ))}
+            {NAV_ITEMS.map((item) =>
+              item.href.startsWith("/") ? (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-sm text-text-secondary hover:text-text-primary py-2"
+                >
+                  {item.label}
+                </Link>
+              ) : (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-sm text-text-secondary hover:text-text-primary py-2"
+                >
+                  {item.label}
+                </a>
+              ),
+            )}
             <div className="border-t border-border-subtle pt-3 mt-2 flex flex-col gap-2">
               <Link
                 href="https://github.com/deepsafehq/deepsafe-bench"

@@ -2,10 +2,10 @@ import React from "react";
 import { CheckCircle2, ArrowRight, Code2 } from "lucide-react";
 
 const features = [
-  "REST API with sync and async modes",
-  "Flat per-scan pricing for any media type",
-  "Confidence-scored verdicts for images, audio, and video",
-  "No API key needed to reproduce any published number",
+  "Reproduce any published number with no media and no GPU",
+  "Score your own detector: one function, predict(path) to float",
+  "Per-generator breakdowns, so failure modes stay visible",
+  "Self-host the full stack, or import the package alone",
 ];
 
 export function ApiSection() {
@@ -16,16 +16,15 @@ export function ApiSection() {
           <div className="flex items-center gap-2 mb-6">
             <Code2 className="w-4 h-4 text-accent" />
             <p className="text-[13px] font-medium tracking-[1.5px] uppercase text-accent">
-              Developer First
+              Open Tooling
             </p>
           </div>
           <h2 className="font-heading text-3xl md:text-[40px] font-light tracking-[-1px] leading-[1.15] text-text-primary mb-6">
-            Integrate in minutes.
+            Check the numbers yourself.
           </h2>
           <p className="text-base text-text-secondary mb-8 leading-relaxed">
-            Our REST API makes it simple to add deepfake detection to your
-            moderation pipelines, identity verification flows, and content
-            platforms.
+            The package installs with no dependencies, so you can verify every
+            number on this page before deciding whether to trust any of them.
           </p>
 
           <ul className="space-y-3 mb-8">

@@ -294,25 +294,25 @@ function ImageIllustration() {
 const features = [
   {
     overline: "Video Forensics",
-    title: "Every frame tells the truth.",
+    title: "Nine video models, and none of them generalize.",
     description:
-      "Upload any video and get frame-by-frame forensic analysis. DeepSafe detects facial manipulation, lip-sync inconsistencies, and temporal artifacts invisible to the naked eye.",
+      "FakeSTormer, SBI, DFD-FCG, PwTF-DVD, LipFD, RECCE and MINTIME. Held-out ensemble AUC 0.6694. An image detector run frame by frame beats all of them.",
     icon: Film,
     illustration: VideoIllustration,
   },
   {
     overline: "Audio Analysis",
-    title: "Hear what algorithms hide.",
+    title: "Three audio models, weakest outside English.",
     description:
-      "Voice clones and synthetic speech leave subtle spectral fingerprints. DeepSafe catches frequency anomalies and phase artifacts across speech and music.",
+      "ShiftySpeech, SafeEar and Nes2Net, combined by a calibrated meta-learner. Held-out AUC 0.8290, and aggregate multilingual performance drops to 0.634.",
     icon: AudioLines,
     illustration: AudioIllustration,
   },
   {
     overline: "Image Detection",
-    title: "See beyond the pixel.",
+    title: "Seven image models, the strongest of the three.",
     description:
-      "From GANs to diffusion models, every generation method leaves traces. DeepSafe identifies manipulation artifacts at the sub-pixel level across all major AI image generators.",
+      "AIDE, CO-SPY, Effort, FSD, NPR, Universal and Yermandy. Held-out AUC 0.9466, near-perfect on 2022-era diffusion and far weaker on recent generators.",
     icon: ImageIcon,
     illustration: ImageIllustration,
   },
@@ -326,10 +326,10 @@ export function Features() {
     >
       <div className="text-center max-w-[560px] mx-auto mb-20">
         <p className="text-[13px] font-medium tracking-[1.5px] uppercase text-accent mb-4">
-          Detection Capabilities
+          What Gets Measured
         </p>
         <h2 className="font-heading text-3xl md:text-[40px] font-light tracking-[-1px] leading-[1.15] text-text-primary">
-          Comprehensive defense across every modality.
+          Measured across every modality.
         </h2>
       </div>
 

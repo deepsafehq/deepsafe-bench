@@ -46,12 +46,12 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <a
+                <Link
                   href="/benchmark"
                   className="hover:text-text-primary transition-colors"
                 >
                   Benchmark
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

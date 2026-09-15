@@ -4,27 +4,27 @@ import { ArrowRight } from "lucide-react";
 const steps = [
   {
     number: "01",
-    title: "Upload",
+    title: "Install",
     description:
-      "Drop any image, video, or audio file through the web dashboard. Or send it via our REST API.",
+      "pip install deepsafe-bench. No dependencies, so you can check our numbers before trusting them.",
   },
   {
     number: "02",
-    title: "Analyze",
+    title: "Detect",
     description:
       "24 models score the media independently, then a calibrated meta-learner combines them into one number.",
   },
   {
     number: "03",
-    title: "Verdict",
+    title: "Evaluate",
     description:
-      "Get a single confidence-scored verdict, authentic or synthetic, in seconds.",
+      "Score any detector across 411 generators. In-distribution and unseen-generator results are always reported separately.",
   },
   {
     number: "04",
-    title: "Integrate",
+    title: "Adapt",
     description:
-      "Embed detection into your own apps, moderation pipelines, or verification workflows via the API.",
+      "Retrain the ensemble on your own labeled data, and find out whether the gain survives a generator it never saw.",
   },
 ];
 
@@ -37,7 +37,7 @@ export function HowItWorks() {
             How It Works
           </p>
           <h2 className="font-heading text-3xl md:text-[40px] font-light tracking-[-1px] leading-[1.15] text-text-primary">
-            From upload to verdict in seconds.
+            Measure it, do not just run it.
           </h2>
         </div>
 
@@ -64,7 +64,7 @@ export function HowItWorks() {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:text-accent-hover transition-colors"
           >
-            Read the API documentation
+            Read the documentation
             <ArrowRight className="w-3.5 h-3.5" />
           </a>
         </div>
