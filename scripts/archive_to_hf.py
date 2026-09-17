@@ -74,16 +74,31 @@ def pack(src: pathlib.Path, work_dir: pathlib.Path, prefix: str) -> int:
         return 1
     work_dir.mkdir(parents=True, exist_ok=True)
 
+    # The ordering here (a global sort) determines shard boundaries, and resume
+    # reuses shards by index. Changing it would silently repack different files
+    # under an existing shard name, so the sort stays even though streaming the
+    # walk would report progress sooner.
     print(f"scanning {src} ...", flush=True)
-    entries = []
-    for path in sorted(src.rglob("*")):
+    seen = 0
+    paths = []
+    for path in src.rglob("*"):
+        seen += 1
+        if seen % 25_000 == 0:
+            print(f"  ...walked {seen:,} entries", flush=True)
         if path.is_file() and not path.is_symlink():
-            try:
-                entries.append((path, path.stat().st_size))
-            except OSError:
-                continue
+            paths.append(path)
+
+    print(f"  walked {seen:,} entries, sorting {len(paths):,} files ...", flush=True)
+    entries = []
+    for i, path in enumerate(sorted(paths), start=1):
+        if i % 50_000 == 0:
+            print(f"  ...sized {i:,}/{len(paths):,}", flush=True)
+        try:
+            entries.append((path, path.stat().st_size))
+        except OSError:
+            continue
     total = sum(size for _, size in entries)
-    print(f"  {len(entries):,} files, {human(total)}")
+    print(f"  {len(entries):,} files, {human(total)}", flush=True)
 
     shards, current, current_bytes, index = [], [], 0, 0
 
@@ -95,14 +110,16 @@ def pack(src: pathlib.Path, work_dir: pathlib.Path, prefix: str) -> int:
         name = f"{prefix}-{index:04d}.tar"
         out = work_dir / name
         if out.exists():
-            print(f"  [{index:04d}] exists, reusing {name}")
+            print(f"  [{index:04d}] exists, reusing {name}", flush=True)
         else:
             tmp = out.with_suffix(".tar.partial")
             with tarfile.open(tmp, "w") as archive:
                 for path in current:
                     archive.add(path, arcname=str(path.relative_to(src)))
             tmp.rename(out)
-            print(f"  [{index:04d}] wrote {name} ({human(out.stat().st_size)})")
+            print(f"  [{index:04d}] wrote {name} ({human(out.stat().st_size)})",
+                  flush=True)
+        print(f"  [{index:04d}] hashing {name} ...", flush=True)
         shards.append({
             "name": name,
             "files": len(current),
@@ -128,7 +145,7 @@ def pack(src: pathlib.Path, work_dir: pathlib.Path, prefix: str) -> int:
     }
     (work_dir / MANIFEST).write_text(json.dumps(manifest, indent=2))
     print(f"\npacked {len(entries):,} files into {len(shards)} shards "
-          f"({human(sum(s['bytes'] for s in shards))})")
+          f"({human(sum(s['bytes'] for s in shards))})", flush=True)
     print(f"manifest: {work_dir / MANIFEST}")
     return 0
 
