@@ -26,6 +26,8 @@ const inter = Inter({
   display: "swap",
 });
 
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 export const metadata: Metadata = {
   title: {
     default: siteConfig.name,
@@ -34,8 +36,8 @@ export const metadata: Metadata = {
   description: siteConfig.description,
   icons: {
     icon: [
-      { url: "/favicon.svg", type: "image/svg+xml" },
-      { url: "/favicon.ico", sizes: "32x32" },
+      { url: `${BASE}/favicon.svg`, type: "image/svg+xml" },
+      { url: `${BASE}/favicon.ico`, sizes: "32x32" },
     ],
   },
 };

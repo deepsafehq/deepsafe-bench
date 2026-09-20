@@ -34,7 +34,7 @@ jobs:
       - name: Build landing
         run: cd apps/web && CI=true NEXT_PUBLIC_BASE_PATH=/deepsafe-bench pnpm build
       - name: Build docs
-        run: cd apps/docs && CI=true pnpm build
+        run: cd apps/docs && CI=true NEXT_PUBLIC_BASE_PATH=/deepsafe-bench/docs pnpm build
 
       - name: Assemble site
         run: |
