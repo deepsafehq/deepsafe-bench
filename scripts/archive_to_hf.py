@@ -60,11 +60,19 @@ def human(n: int) -> str:
     return f"{value:.1f} TB"
 
 
-def pack(src: pathlib.Path, work_dir: pathlib.Path, prefix: str) -> int:
+def pack(src: pathlib.Path, work_dir: pathlib.Path, prefix: str,
+         exclude: tuple[str, ...] = ()) -> int:
     """Pack ``src`` into tar shards under ``work_dir``.
 
     Files are grouped in sorted order so the layout is deterministic and a
     re-run produces the same shards. Already-written shards are reused.
+
+    Args:
+        src: Directory to pack.
+        work_dir: Where shards and the manifest are written.
+        prefix: Shard filename prefix.
+        exclude: Top-level entry names under ``src`` to skip entirely. Used to
+            leave out material whose licence forbids redistribution.
 
     Returns:
         Process exit code.
@@ -81,8 +89,13 @@ def pack(src: pathlib.Path, work_dir: pathlib.Path, prefix: str) -> int:
     print(f"scanning {src} ...", flush=True)
     seen = 0
     paths = []
+    excluded = set(exclude)
     for path in src.rglob("*"):
         seen += 1
+        # Skip anything under an excluded top-level entry.
+        rel = path.relative_to(src)
+        if rel.parts and rel.parts[0] in excluded:
+            continue
         if seen % 25_000 == 0:
             print(f"  ...walked {seen:,} entries", flush=True)
         if path.is_file() and not path.is_symlink():
@@ -138,6 +151,7 @@ def pack(src: pathlib.Path, work_dir: pathlib.Path, prefix: str) -> int:
     manifest = {
         "source": str(src),
         "prefix": prefix,
+        "excluded": sorted(excluded),
         "file_count": len(entries),
         "source_bytes": total,
         "shard_bytes_target": SHARD_BYTES,
@@ -210,7 +224,8 @@ def verify(work_dir: pathlib.Path, repo: str, path_in_repo: str,
     failures = []
     for shard in manifest["shards"]:
         remote = f"{path_in_repo}/{shard['name']}"
-        print(f"  verifying {shard['name']} ...", flush=True)
+        print(f"  verifying {shard['name']} "
+              f"({shard['bytes'] / 1024**3:.1f} GB) ...", flush=True)
         try:
             local = hf_hub_download(repo, remote, repo_type=repo_type)
         except Exception as exc:
@@ -219,6 +234,16 @@ def verify(work_dir: pathlib.Path, repo: str, path_in_repo: str,
         actual = sha256(pathlib.Path(local))
         if actual != shard["sha256"]:
             failures.append((shard["name"], "SHA-256 mismatch"))
+
+        # Delete the downloaded copy immediately. Verifying a 227 GB corpus
+        # must not require 227 GB of free space; one shard at a time is
+        # enough, and the blob is what actually consumes the disk.
+        try:
+            blob = pathlib.Path(local).resolve()
+            pathlib.Path(local).unlink(missing_ok=True)
+            blob.unlink(missing_ok=True)
+        except OSError:
+            pass
 
     if failures:
         print("\nVERIFICATION FAILED. Do not delete the source.")
@@ -245,13 +270,18 @@ def main() -> int:
     p_pack = sub.add_parser("pack", parents=[common])
     p_pack.add_argument("--src", type=pathlib.Path, required=True)
     p_pack.add_argument("--prefix", required=True)
+    p_pack.add_argument(
+        "--exclude", default="",
+        help="comma-separated top-level entry names under --src to skip",
+    )
 
     sub.add_parser("upload", parents=[common])
     sub.add_parser("verify", parents=[common])
 
     args = parser.parse_args()
     if args.command == "pack":
-        return pack(args.src, args.work_dir, args.prefix)
+        excl = tuple(x.strip() for x in args.exclude.split(",") if x.strip())
+        return pack(args.src, args.work_dir, args.prefix, excl)
     if args.command == "upload":
         return upload(args.work_dir, args.repo, args.path_in_repo, args.repo_type)
     return verify(args.work_dir, args.repo, args.path_in_repo, args.repo_type)
