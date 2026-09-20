@@ -182,6 +182,18 @@ Read these before trusting any output.
 - **Provenance signals are stronger than detection**, when present. A C2PA
   manifest or a watermark is real evidence; a model score is an estimate.
 
+## Origins
+
+DeepSafe began as
+**[siddharthksah/DeepSafe](https://github.com/siddharthksah/DeepSafe)**, an
+MIT-licensed detection platform that put several models behind one API. That
+project is still there, still MIT, and is where this one came from.
+
+This repository is a separate, newer effort with a different question behind
+it. The original asked how to run many detectors together; this one asks
+whether doing so actually works, and publishes the answer including the parts
+that do not flatter the field.
+
 ## License
 
 [PolyForm Noncommercial 1.0.0](LICENSE). Free for research, education, personal
