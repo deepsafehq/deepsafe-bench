@@ -9,7 +9,7 @@ export const siteConfig = {
   // Site metadata
   name: "DeepSafe API",
   description:
-    "Developer documentation for the DeepSafe deepfake detection API.",
+    "Documentation for DeepSafe, a self-hosted deepfake detection benchmark and toolkit.",
   url: "https://deepsafehq.github.io/deepsafe-bench/docs",
 
   // Logo configuration
@@ -22,15 +22,19 @@ export const siteConfig = {
 
   // Navigation links
   links: {
-    support: "mailto:contact@deepsafehq.github.io/deepsafe-bench",
+    support: "mailto:deepsafe.hq@gmail.com",
+    github: "https://github.com/deepsafehq/deepsafe-bench",
   } as { support: string; github?: string; discord?: string },
 
   // Footer configuration
   footer: {
-    copyright: "© 2026 DeepSafe AI, Inc. All rights reserved.",
+    copyright:
+      "© 2026 DeepSafe. Free for non-commercial use under PolyForm Noncommercial 1.0.0.",
     links: [
       { label: "Website", href: "https://deepsafehq.github.io/deepsafe-bench" },
-      { label: "Dashboard", href: "http://localhost:3000" },
+      { label: "Benchmark", href: "https://deepsafehq.github.io/deepsafe-bench/benchmark" },
+      { label: "GitHub", href: "https://github.com/deepsafehq/deepsafe-bench" },
+      { label: "PyPI", href: "https://pypi.org/project/deepsafe-bench/" },
     ],
   },
 };

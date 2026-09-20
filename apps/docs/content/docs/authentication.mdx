@@ -62,14 +62,15 @@ const result = await response.json();
 
 ## Key Management
 
-- Create up to **5 keys** per account for different environments (dev, staging, prod)
-- Revoke compromised keys instantly from the dashboard
+- Up to **5 keys** per user, for separate environments (dev, staging, prod)
+- Revoke a compromised key with `DELETE /api/keys/{id}`
 - Revoked keys return `401 Unauthorized` immediately
-- All keys share the same scan quota (per-user billing, not per-key)
+- Keys belonging to one user share a quota, so quota is per-user, not per-key
 
 ## Security Best Practices
 
-- Keys are hashed (SHA-256) before storage. We never store your key in plaintext.
+- Keys are hashed (SHA-256) before storage. The plaintext key is never persisted,
+  by your own gateway or anyone else.
 - Use environment variables to store keys, never hardcode them
 - Rotate keys periodically
 - Use separate keys for development and production
