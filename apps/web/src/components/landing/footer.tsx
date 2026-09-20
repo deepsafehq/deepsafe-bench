@@ -72,27 +72,69 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="https://deepsafehq.github.io/deepsafe-bench/docs/endpoints"
+                  href="https://github.com/deepsafehq/deepsafe-bench/blob/main/REPRODUCING.md"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-text-primary transition-colors"
                 >
-                  API Reference
+                  Reproduce the results
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://pypi.org/project/deepsafe-bench/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-text-primary transition-colors"
+                >
+                  PyPI package
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://huggingface.co/deepsafe"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-text-primary transition-colors"
+                >
+                  Models &amp; datasets
                 </a>
               </li>
             </ul>
           </div>
           <div>
             <h4 className="text-sm font-medium text-text-primary mb-4">
-              Company
+              Project
             </h4>
             <ul className="space-y-2.5 text-sm text-text-secondary">
               <li>
                 <a
-                  href="mailto:contact@deepsafehq.github.io/deepsafe-bench"
+                  href="https://github.com/deepsafehq/deepsafe-bench"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="hover:text-text-primary transition-colors"
                 >
-                  Contact
+                  Source code
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://github.com/deepsafehq/deepsafe-bench/issues"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-text-primary transition-colors"
+                >
+                  Issues
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://github.com/deepsafehq/deepsafe-bench/blob/main/LICENSE"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-text-primary transition-colors"
+                >
+                  Licence
                 </a>
               </li>
             </ul>
@@ -100,8 +142,8 @@ export function Footer() {
         </div>
         <div className="pt-8 border-t border-border-subtle flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-text-tertiary">
-            &copy; {new Date().getFullYear()} DeepSafe AI, Inc. All rights
-            reserved.
+            &copy; {new Date().getFullYear()} DeepSafe. Free for non-commercial use
+            under PolyForm Noncommercial 1.0.0.
           </p>
           <div className="flex gap-6 text-sm text-text-tertiary">
             <Link

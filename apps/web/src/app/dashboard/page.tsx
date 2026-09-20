@@ -435,7 +435,7 @@ export default function DashboardPage() {
                 <ArrowUpRight className="w-4 h-4 text-text-tertiary ml-auto" />
               </a>
               <a
-                href="mailto:contact@deepsafehq.github.io/deepsafe-bench"
+                href="https://github.com/deepsafehq/deepsafe-bench/issues"
                 className="flex items-center gap-3 p-4 bg-surface border border-border rounded-md hover:border-accent/30 transition-colors"
               >
                 <Mail className="w-5 h-5 text-accent" />

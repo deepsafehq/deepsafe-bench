@@ -9,8 +9,7 @@ export function PageFooter({ activePage }: PageFooterProps) {
     <footer className="border-t border-border py-8">
       <div className="max-w-4xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
         <p className="text-text-tertiary text-sm">
-          &copy; {new Date().getFullYear()} DeepSafe AI, Inc. All rights
-          reserved.
+          &copy; {new Date().getFullYear()} DeepSafe. Free for non-commercial use.
         </p>
         <div className="flex gap-6 text-sm text-text-tertiary">
           {activePage === "privacy" ? (

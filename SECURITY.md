@@ -4,7 +4,7 @@
 
 Report security issues privately via GitHub's [private vulnerability
 reporting](https://github.com/deepsafehq/deepsafe-bench/security/advisories/new).
-Please do not open a public issue for a security problem.
+Please do not open a public issue for a security problem. You can also email deepsafe.hq@gmail.com.
 
 Expect an acknowledgement within 7 days and an assessment within 30 days.
 

@@ -12,8 +12,8 @@ commit SHA, pull date, authors, and citation.
 
 ## Takedown Policy
 
-If you are an author of any mirrored work and want it removed, open an issue or
-email the maintainer listed in `CITATION.cff`. **We will remove it within 48
+If you are an author of any mirrored work and want it removed, open an issue or email
+deepsafe.hq@gmail.com. **We will remove it within 48
 hours, no questions asked and no justification required.** We mirror to preserve
 reproducibility, not to claim ownership.
 

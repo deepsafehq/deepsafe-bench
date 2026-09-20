@@ -66,18 +66,18 @@ export function LandingNavbar() {
 
         <div className="flex items-center gap-4">
           <Link
-            href="https://github.com/deepsafehq/deepsafe-bench"
+            href="/docs"
             className="hidden md:block text-sm text-text-secondary hover:text-text-primary transition-colors"
             style={{ transitionDuration: "var(--duration-fast)" }}
           >
-            Sign In
+            Docs
           </Link>
           <Link
             href="https://github.com/deepsafehq/deepsafe-bench"
             className="hidden sm:flex h-9 px-5 items-center text-sm font-medium bg-accent text-accent-foreground rounded-full hover:bg-accent-hover transition-colors"
             style={{ transitionDuration: "var(--duration-fast)" }}
           >
-            Get Started
+            GitHub
           </Link>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -119,16 +119,16 @@ export function LandingNavbar() {
             )}
             <div className="border-t border-border-subtle pt-3 mt-2 flex flex-col gap-2">
               <Link
-                href="https://github.com/deepsafehq/deepsafe-bench"
+                href="/docs"
                 className="w-full py-2.5 text-sm font-medium border border-border text-text-secondary hover:text-text-primary text-center rounded-md transition-colors"
               >
-                Sign In
+                Docs
               </Link>
               <Link
                 href="https://github.com/deepsafehq/deepsafe-bench"
                 className="w-full py-2.5 text-sm font-medium bg-accent text-accent-foreground text-center rounded-full"
               >
-                Get Started
+                GitHub
               </Link>
             </div>
           </nav>

@@ -19,7 +19,7 @@ export function BottomCta() {
           Get the code
         </Link>
         <a
-          href="mailto:sales@deepsafehq.github.io/deepsafe-bench"
+          href="https://github.com/deepsafehq/deepsafe-bench/blob/main/BENCHMARK.md"
           className="text-sm text-text-secondary hover:text-text-primary transition-colors"
           style={{ transitionDuration: "var(--duration-fast)" }}
         >
